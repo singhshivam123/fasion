@@ -1,0 +1,144 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text
+          %a{href: "#{root_path}"}
+            %i.fa.fa-home
+            Home
+          %span Shop
+/ Breadcrumb Section Begin
+/ Product Shop Section Begin
+%section.product-shop.spad
+  .container
+    .row
+      .col-lg-3.col-md-6.col-sm-8.order-2.order-lg-1.produts-sidebar-filter
+        .filter-widget
+          %h4.fw-title
+            .filter-range-wrap
+              =  link_to "All products", products_path, class: "filter-btn", style: "color:black; font-size: 20px;", remote: true
+              -# %a{href: "#{products_path}", class: "filter-btn", style: "color:black; font-size: 20px;"}
+              -#   All products
+        .filter-widget
+          %h4.fw-title Categories
+          - @categories.each do |categories|
+            %ul.filter-catagories
+              %li
+                -# %a{href: products_path(category_id: categories), remote: true}= categories.name
+                =  link_to "#{categories.name}", products_path(category_id: categories), remote: true
+        .filter-widget
+          %h4.fw-title Price
+          = form_tag products_path,method: :get do
+            .filter-range-wrap
+              .row
+                .col-8
+                  = select_tag :order, options_for_select([['All', ''], ['High to Low', 'desc'], ['Low to High', 'asc']], selected:params[:order]), class: "form-control"
+                .col-4
+                  = submit_tag "Filter" , class: "filter-btn"
+        .filter-widget
+          %h4.fw-title Brand
+          - @brands.each do |brand|
+            .fw-brand-check
+              .bc-item
+                %ul.filter-catagories
+                  %li
+                    =  link_to "#{brand.name}", products_path(category_id: brand), remote: true
+        -# .filter-widget
+          %h4.fw-title Price
+          .filter-range-wrap
+            .range-slider
+              .price-input
+                = form_tag products_path, method: :get do
+                  = text_field_tag :minamount, params[:minamount]
+                  = text_field_tag :maxamount, params[:maxamount]
+                -# %input#minamount{type: "text"}
+                -# %input#maxamount{type: "text"}
+            .price-range.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content{"data-max": "98", "data-min": "33"}
+              .ui-slider-range.ui-corner-all.ui-widget-header
+              %span.ui-slider-handle.ui-corner-all.ui-state-default{tabindex: "0"}
+              %span.ui-slider-handle.ui-corner-all.ui-state-default{tabindex: "0"}
+                = submit_tag("Filter")
+      .col-lg-9.order-1.order-lg-2
+        .product-list
+          .row
+            - @products.each do |product|
+              .col-lg-4.col-sm-6
+                .product-item
+                  .pi-pic
+                    %a{href: "#{product_path(product.slug)}"}
+                      = image_tag product.image, style: "height: 300px; width: 295px;"
+                    %div
+                      - if product.available == "yes"
+                        %p
+                      - else product.available == "no"
+                        .sale.pp-sale{style: "margin-bottom: 3px; margin-left: 10px;"} Out of Stock
+                    %div
+                      - unless user_signed_in? && Cart.where(user_id: current_user.id).pluck(:product_id).include?(product.id)
+                        %p
+                      - else
+                        .sale.pp-sale{style:"width: 96px;  line-height: 2; background-color: #828bb3; margin-bottom: 3px; margin-left: 10px;"} Go to cart
+                    %ul
+                      %li.w-icon.active
+                        -# = form_with(url: carts_path, model: @cart, local: true) do |form|
+                          .field
+                            = form.hidden_field :user_id, value: current_user.id if user_signed_in?
+                          .field
+                            = form.hidden_field :product_id, value: product.id
+                          .field
+                            = form.hidden_field :quantity
+                          .field
+                            = form.hidden_field :total, value: product.mrp
+                          .field
+                            = form.hidden_field :product_color_id
+                          .field
+                            = form.hidden_field :product_size_id
+                          .pi-links
+                            - unless user_signed_in? && Cart.where(user_id: current_user.id).pluck(:product_id).include?(product.id)
+                              = form.submit 'Add to Cart' if product.available == "yes"
+                              %i.fa.fa-shopping-bag
+                            - else
+                              %a{href: "#{carts_path}", style: "background: none; width: 120px;"}Go To Cart
+                      %li.quick-view
+                        %a{href: "#{product_path(product)}"} + Quick View
+                  .pi-text
+                    .catagory-name= product.brand.name
+                    %a{href: "#"}
+                      %h5= product.name
+                    .product-price
+                      = "$#{product.price}.00"
+                      %span $35.00
+                      -# .icon
+                      -# %i.fa.fa-heart-o
+                      -# %ul
+                      -# %li.w-icon.active
+                      -# %a{href: "#"}
+                      -# %i.fa.fa-shopping-bag
+        .loading-more
+          %i.fa
+            %a{href: "#"}
+              = paginate @products
+/ Product Shop Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

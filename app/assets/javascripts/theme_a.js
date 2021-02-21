@@ -1,0 +1,14 @@
+//= require rails-ujs
+//= require theme_a/js/jquery-3.2.1.min
+//= require best_in_place
+//= require theme_a/js/jquery.slicknav.min
+//= require theme_a/js/owl.carousel.min
+//= require theme_a/js/jquery.nicescroll.min
+//= require theme_a/js/jquery.zoom.min
+//= require theme_a/js/jquery-ui.min
+//= require best_in_place.jquery-ui
+//= require theme_a/js/main
+//= require theme_a/js/notify
+//= require theme_a/best
+//= require jquery_ujs
+//= require jquery.purr

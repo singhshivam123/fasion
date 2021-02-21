@@ -1,0 +1,27 @@
+= form_with model: cart, class: 'divTableRow', id: dom_id(cart, 'inline_form') do |form|
+  .divTableCell
+    = image_tag cart.product.image, style: "height: 150px; width: 152px;"
+  .divTableCell= cart.product.name
+  .divTableCell= cart.product.mrp
+  .divTableCell
+    = form.hidden_field :user_id
+    = form.hidden_field :product_id
+    = form.hidden_field :total
+    .fw-color-choose{style: "border: none; margin-bottom: 26px; padding: 0;"}
+      %p{style: "float: left;"}
+      - @cart.product.product_color.each do |product_color|
+        .cs-item
+          =  form.radio_button :product_color_id, product_color.id, required: true
+          %label{style: "background-color: #{product_color.color.value}", for: "cart_product_color_id_#{product_color.id}"}
+  .divTableCell
+    .product-details
+      .pd-size-choose
+        - @cart.product.product_size.each do |product_size|
+          .sc-item
+            = form.radio_button :product_size_id, product_size.id
+            %label{class: "#{product_size.size.name}-size", for: "cart_product_size_id_#{product_size.id}", style: "width: 74px;"}= product_size.size.name
+  .divTableCell
+    = form.number_field :quantity, class: 'form-control'
+  .divTableCell= cart.total
+  .divTableCell
+    = form.submit "Update", class: "primary-btn", style: "font-weight: 0px; padding: 0px; width: 109px;"

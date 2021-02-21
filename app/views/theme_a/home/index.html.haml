@@ -1,0 +1,207 @@
+/ Hero section
+%section.hero-section
+  .hero-slider.owl-carousel
+    .hs-item.set-bg{"data-setbg": (asset_path "theme_a/img/bg-3.jpg")}
+      .container
+        .row
+          .col-xl-6.col-lg-7.text-white
+            %span New Arrivals
+            %h2 New Product Collection
+            %p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum sus-pendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+            %a.site-btn.sb-white{href: "#{products_path}"} ADD TO CART
+        .offer-card.text-white
+          %span from
+          %h2 $29
+          %p SHOP NOW
+    .hs-item.set-bg{"data-setbg": (asset_path "theme_a/img/bg-4.jpg")}
+      .container
+        .row
+          .col-xl-6.col-lg-7.text-white
+            %span New Arrivals
+            %h2 HOT DEAL Up to 50% OFF
+            %p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum sus-pendisse ultrices gravida. Risus commodo viverra maecenas accumsan lacus vel facilisis.
+            %a.site-btn.sb-white{href: "#{products_path}"} ADD TO CART
+        .offer-card.text-white
+          %span from
+          %h2 $29
+          %p SHOP NOW
+  .container
+    #snh-1.slide-num-holder
+/ Hero section end
+/ Features section
+%section.features-section
+  .container-fluid
+    .row
+      .col-md-4.p-0.feature
+        .feature-inner
+          .feature-icon
+            / <img src="img/icons/1.png" width="30" alt="#">
+            = image_tag "theme_a/img/icons/1.png", width: "30"
+          %h2 Fast Secure Payments
+      .col-md-4.p-0.feature
+        .feature-inner
+          .feature-icon
+            / <img src="img/icons/2.png" width="30" alt="#">
+            = image_tag "theme_a/img/icons/2.png", width: "30"
+          %h2 Premium Products
+      .col-md-4.p-0.feature
+        .feature-inner
+          .feature-icon
+            / <img src="img/icons/3.png" width="30" alt="#">
+            = image_tag "theme_a/img/icons/3.png", width: "30"
+          %h2 Free  fast Delivery
+/ Features section end
+.banner-padding-bg
+  .container
+    .row{"data-gutter": "15"}
+      .col-md-4
+        .banner-2{style: "background-color:#83599A;"}
+          %a.banner-link{href: "#"}
+          .banner-caption-top-left
+            %h5.banner-title Backpack Collection
+            %p.banner-desc Don't Be Vague. Ask for Backpack .
+            %p.banner-shop-now
+              Shop Now
+              %i.fa.fa-caret-right
+          = image_tag "theme_a/img/bag.png", class: "banner-img", style: "bottom: -8px; right: -32px;", title: "Image Title"
+      .col-md-4
+        .banner-2{style: "background-color:#EF4D9C;"}
+          %a.banner-link{href: "#"}
+          .banner-caption-top-right
+            %h5.banner-title Best 2015 Tablets
+            %p.banner-desc Double the Pleasure, Double the Tablets.
+            %p.banner-shop-now
+              Shop Now
+              %i.fa.fa-caret-right
+          = image_tag "theme_a/img/tablets.png", class: "banner-img", style: "bottom: -22px; left: 0; width: 235px;", title: "Image Title"
+      .col-md-4
+        .banner-2{style: "background-color:#FEA92E;"}
+          %a.banner-link{href: "#"}
+          .banner-caption-bottom-left
+            %h5.banner-title Top Glasses
+            %p.banner-desc My Goodness, My Glasses!
+            %p.banner-shop-now
+              Shop Now
+              %i.fa.fa-caret-right
+          = image_tag "theme_a/img/glasses.png", class: "banner-img", style: "top: -4px; right: -15px; width: 220px;", title: "Image Title"
+  / BLOCKS WRAP
+%section{style: "background-color: #f8f8f8;"}
+  .block-main.container
+    .row
+      .col-md-4.col-sm-4
+        .block-content
+          / <img src="img/1.jpg" class="img-responsive" alt=""/>
+          = image_tag "theme_a/img/1.jpg", class: "img-responsive"
+          .bs-text-down.text-center.hvr-outline-out
+            Menswear
+            %span Intimates Fall/Winter 2015
+      .col-md-4.col-sm-4
+        .block-content
+          / <img src="img/5.jpg" class="img-responsive" alt=""/>
+          = image_tag "theme_a/img/5.jpg", class: "img-responsive"
+          .bs-text-center.text-center
+            Accesories
+            %span Get a new look with Smile Collection
+      .col-md-4.col-sm-4
+        .block-content
+          / <img src="img/3.jpg" class="img-responsive" alt=""/>
+          = image_tag "theme_a/img/3.jpg", class: "img-responsive"
+          .bs-text-down.text-center
+            Womenswear
+            %span Smile Collection new arrivals
+  .clearfix
+/ letest product section
+%section.product-filter-section{style: "margin-top: 15px;"}
+  .container
+    .section-title
+      %h2{onclick: "this.style.backgroundColor='#009900';this.style.color='#FFFFFF';"}LATEST PRODUCTS
+      %br
+      .row
+        .col-xl-3
+        %ul.product-filter-menu
+          %li
+            %a{href: "#{root_path}"}All PRODUCTS
+          - @categories.each do |category|
+            %li
+              %a{href: "#{root_path(category_id: category)}"}
+                = category.name
+    .row
+      - @products.each do |product|
+        .col-lg-3.col-sm-6
+          .product-item
+            .pi-pic
+              - if product.available == "yes"
+                %div
+              - else
+                .tag-new{style: "width: 96px;  line-height: 2;"} Out of Stock
+              %a{href: "#{product_path(product)}"}
+                = image_tag product.image
+              -# = form_with(url: carts_path, model: @cart, local: true) do |form|
+              -#   .field
+              -#     = form.hidden_field :user_id, value: current_user.id if user_signed_in?
+              -#   .field
+              -#     = form.hidden_field :product_id, value: product.id
+              -#   .field
+              -#     = form.hidden_field :quantity
+              -#   .field
+              -#     = form.hidden_field :total, value: product.mrp
+              -#   .field
+              -#     = form.hidden_field :product_color_id
+              -#   .field
+              -#     = form.hidden_field :product_size_id
+              -#   .pi-links
+              -#     - unless user_signed_in? && Cart.where(user_id: current_user.id).pluck(:product_id).include?(product.id)
+              -#       = form.submit 'Add to Cart', class: 'btn' if product.available == "yes"
+              -#     - else
+              -#       %a{href: "#{carts_path}", style: "background: none; width: 120px;"}Go To Cart
+            .pi-text
+              %h6= "$#{product.price}.00"
+              %p= product.name
+    .text-center.pt-5
+      .cart-table{style: "background: white;"}
+        .total-cost{style: "background: white;"}
+          %h6{ style: "color: red;"}
+            = paginate @products
+      %h2= "No Product" if @products.blank?
+      %br
+      %button.site-btn.sb-line.sb-dark LOAD MORE
+/ Product filter section end
+/ Banner section
+%section.banner-section
+  .container
+    .banner.set-bg{"data-setbg": (asset_path "theme_a/img/banner-bg.jpg")}
+      .tag-new NEW
+      %span New Arrivals
+      %h2 STRIPED SHIRTS
+      %a.site-btn{href: "#"} SHOP NOW
+/ Banner section end
+/ section
+.section
+  / container
+  .container
+    / row
+    .row
+      / banner
+      .col-md-4.col-sm-6
+        %a.banner.banner-1{href: "#"}
+          = image_tag "theme_a/img/banner10.jpg"
+          .banner-caption.text-center
+            %h4.white-color.text-white NEW COLLECTION
+      / /banner
+      / banner
+      .col-md-4.col-sm-6
+        %a.banner.banner-1{href: "#"}
+          = image_tag "theme_a/img/banner11.jpg"
+          .banner-caption.text-center
+            %h4.white-color.text-white NEW COLLECTION
+      / /banner
+      / banner
+      .col-md-4.col-md-offset-0.col-sm-6.col-sm-offset-3
+        %a.banner.banner-1{href: "#"}
+          = image_tag "theme_a/img/banner12.jpg"
+          .banner-caption.text-center
+            %h4.white-color.text-white NEW COLLECTION
+      / /banner
+    / /row
+  / /container
+/ /section

@@ -1,0 +1,51 @@
+/ Page info
+.page-top-info
+  .container
+    %h4 Contact
+    .site-pagination
+      %a{href: ""} Home
+      \/
+      %a{href: ""} Contact
+/ Page info end
+/ Contact section
+%section.contact-section
+  .container
+    .row
+      .col-lg-6.contact-info
+        %h3 Get in touch
+        %p= @company.address
+        %p= @company.mobile
+        %p= @company.email
+        .contact-social
+          - @profile.each do |profile|
+            %a{href: "#{profile.url}"}
+              %i{class: "fa fa-#{profile.provider}"}
+        = form_with(url: home_index_path, model: @contact, class: 'contact-form', local: true) do |f|
+          = f.label :name
+          = f.text_field :name, placeholder: "Your Name", required: true
+          - if @contact.errors.any?
+            %p
+              = @contact.errors.messages[:name].join(', ')
+          = f.label :email
+          = f.text_field :email, placeholder: "Your e-mail", required: true
+          - if @contact.errors.any?
+            %p
+              = @contact.errors.messages[:email].join(', ')
+          = f.label :subject
+          = f.text_field :subject, placeholder: "Subject", required: true
+          - if @contact.errors.any?
+            %p
+              = @contact.errors.messages[:subject].join(', ')
+          = f.label :message    
+          = f.text_area :message, placeholder: "Message", required: true
+          - if @contact.errors.any?
+            %p
+              = @contact.errors.messages[:message].join(', ')
+          %button.site-btn{type: 'submit'} SEND NOW
+  .map
+    %iframe{frameborder: "0", height: "400", marginheight: "0", marginwidth: "0", scrolling: "no", src: "https://maps.google.com/maps?width=100%&height=600&hl=en&coord=23.013228, 72.524532&q=1%20Softices Consultancy%20Pvt Ltd%2C%20Surat%2C%20Gujarat&ie=UTF8&t=&z=14&iwloc=B&output=embed", width: "100%"}
+/ Contact section end
+/ Related product section
+%section.related-product-section.spad
+  .container
+    .section-title

@@ -1,0 +1,86 @@
+%section.contact-section.spad
+  .container
+    .row
+      -# = form_for(@tester, url: test_path, class: "comment-form", local: true, html: { method: 'GET' }) do |f|
+      = form_with(url: test_create_path, model: @tester,  class: "comment-form", local: true) do |f|
+        .row
+          .col-lg-12.ui-widget
+            = f.label :country
+            %input.form-control.autocomplete.autocomplete-change{ autocomplete: "off", "data-id": ".country", "data-url": "/pincodes/set_country/", name: "tester[country]", placeholder: 'Enter your country', type: "text", value: f.object.country, 'maxLength': "255", required: true }/
+            = f.hidden_field :country, class: 'country'
+            %br
+          .col-lg-12
+            = f.label :state
+            -# = f.select :state, options_for_select('', f.object.state), {prompt: 'Select State'}, class: "form-control"
+            = f.select :state, options_for_select('', f.object.state), { prompt: 'Select State' }, class: 'form-control autocomplete-drop-down', 'data-url': "/pincodes/set_city/?state_id=", 'data-target': 'select_template', required: true
+            %br
+          .col-lg-12
+            = f.label :city
+            -# = f.select :city, options_for_select('', f.object.city), {prompt: 'Select City'}, class: "form-control"
+            = f.select :city, options_for_select('', f.object.city), { prompt: 'Select City' }, required: true, class: "form-control", id: 'select_template'
+            %br
+            %button#tester_submit.site-btn{type: "submit"} Send message
+- content_for :javascript do
+  :javascript
+    $().ready(function(){
+      $(".autocomplete").each(function() {
+        d_url = $(this).attr("data-url")
+        $(this).autocomplete({
+          minLength: 1,
+          source: d_url,
+          select: function( event, ui ) {
+            $(this).val(ui.item.name);
+            if($(this).siblings($(this).attr("data-id"))){
+              $(this).siblings($(this).attr("data-id")).val(ui.item.id)
+              $(this).siblings($(this).attr("data-id")).trigger('change')
+            }
+            return true;
+          }
+        });
+      });
+
+      $('.country').change(function(){
+        var country_id = $(this).val();
+        $.ajax({
+          url: '/pincodes/set_state/',
+          dataType: "json",
+          data: { country_id: country_id },
+          success: function(data) {
+            if(data){
+              $.each(data, function(index, value){
+                if (value['id'] == null)
+                  value['id'] = ''
+                $('.autocomplete-drop-down').append(
+                  "<option value ='" + value['id'] + "'>" +
+                    value['name'] +
+                  "</option>"
+                );
+              });
+            }
+          }
+        });
+      });
+
+      if($(".autocomplete-drop-down").length != 0){
+        $('.autocomplete-drop-down').change(function() {
+          var element_id = $(this).attr('data-target');
+          $("#" + element_id).empty();
+          if($(this).val() != ""){
+            var url = $(this).attr('data-url') + $(this).val();
+            $.get(url, function(data){
+              if(data){
+                $.each(data, function(index, value){
+                  if (value['id'] == null)
+                    value['id'] = ''
+                  $('#select_template').append(
+                    "<option value ='" + value['id'] + "'>" +
+                      value['name'] +
+                    "</option>"
+                  );
+                });
+              }
+            });
+          }
+        });
+      }
+    });

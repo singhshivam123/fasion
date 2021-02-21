@@ -1,0 +1,78 @@
+/ Footer section
+%section.footer-section
+  .container
+    .footer-logo.text-center
+      %a{href: "#{root_path}"}
+        %h3.text-white Fasion
+    .row
+      .col-lg-3.col-sm-6
+        .footer-widget.about-widget
+          %h2 About
+          %p Donec vitae purus nunc. Morbi faucibus erat sit amet congue mattis. Nullam frin-gilla faucibus urna, id dapibus erat iaculis ut. Integer ac sem.
+          = image_tag 'theme_a/img/cards.png'
+      .col-lg-3.col-sm-6
+        .footer-widget.about-widget
+          %h2 Questions
+          %ul
+            %li
+              %a{href: "#"} About Us
+            %li
+              %a{href: "#"} Track Orders
+            %li
+              %a{href: "#"} Returns
+            %li
+              %a{href: "#"} Jobs
+            %li
+              %a{href: "#"} Shipping
+            %li
+              %a{href: "#"} Blog
+          %ul
+            %li
+              %a{href: "#"} Partners
+            %li
+              %a{href: "#"} Bloggers
+            %li
+              %a{href: "#"} Support
+            %li
+              %a{href: "#"} Terms of Use
+            %li
+              %a{href: "#"} Press
+      .col-lg-3.col-sm-6
+        .footer-widget.about-widget
+          %h2 Questions
+          .fw-latest-post-widget
+            .lp-item
+              .lp-thumb.set-bg{"data-setbg": (asset_path "theme_a/img/blog-thumbs/1.jpg")}
+              .lp-content
+                %h6 what shoes to wear
+                %span Oct 21, 2018
+                %a.readmore{href: "#"} Read More
+            .lp-item
+              .lp-thumb.set-bg{"data-setbg": (asset_path "theme_a/img/blog-thumbs/2.jpg")}
+              .lp-content
+                %h6 trends this year
+                %span Oct 21, 2018
+                %a.readmore{href: "#"} Read More
+      .col-lg-3.col-sm-6
+        .footer-widget.contact-widget
+          %h2 Questions
+          .con-info
+            %span C.
+            %p= @company.name
+          .con-info
+            %span B.
+            %p= @company.address
+          .con-info
+            %span T.
+            %p= @company.mobile
+          .con-info
+            %span E.
+            %p= @company.email
+  .social-links-warp
+    .container
+      .social-links
+        - @profile.each do |profile|
+          %a{class: "#{profile.provider}", href: "#{profile.url}", target: "_blank"}
+            %i{class: "fa fa-#{profile.provider}"}
+            %span= profile.provider.capitalize
+/ Footer section end

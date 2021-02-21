@@ -1,0 +1,129 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text
+          %a{:href => "#"}
+            %i.fa.fa-home
+            = link_to "Home", root_path
+          %span
+            = link_to "User", user_path
+%section.cart_area
+  .container
+    .row
+      .col-lg-6.offset-lg-3
+        .register-form
+          %h2 Edit User details
+          = form_with(url: user_path, model: @user, local: true) do |f|
+            .row{style: "text-align: center; padding-bottom: 40px; margin-bottom: 50px;"}
+              .col-2
+              .col-8{:style => "text-align: center;"}
+                .field.form.form-group
+                  = f.label :first_name
+                  %br/
+                  = f.text_field :first_name, autofocus: true, class: 'form-control',style:"border-top: 0px; text-align:center;", required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:first_name].join(', ')
+                .field
+                  = f.label :last_name
+                  %br/
+                  = f.text_field :last_name, class: 'form-control',style:"border-top: 0px; text-align:center;", required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:last_name].join(', ')
+                .field
+                  %br/
+                  .row{style: "margin-top: 11px;"}
+                    .col-6
+                      = f.label :gender
+                    .col-6{style: "margin-left: -46px; padding-left: 5px;"}
+                      .group-input
+                        .product-details
+                          .pd-size-choose
+                            .sc-item
+                              .row
+                                .col-6
+                                  %input#male{name: "user[gender]", type: "radio", value: "male", checked: true}
+                                  %label{style: "width: 54px;", for: "male"} Male
+                                .col-6
+                                  %input#female{name: "user[gender]", type: "radio", value: "female"}
+                                    %label{style: "width: 92px;", for: "female"} Female
+                      .col-2
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:gender].join(', ')
+                .field
+                  = f.label :mobile
+                  %br/
+                  = f.text_field :mobile, class: 'form-control',style:"border-top: 0px; text-align:center;", required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:mobile].join(', ')
+                .field
+                  = f.label :address
+                  %br/
+                  = f.text_field :address, class: 'form-control',style:"border-top: 0px; text-align:center;", required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:address].join(', ')
+                .field
+                  = f.label :location
+                  %br/
+                  = f.text_field :location, class: 'form-control',style:"border-top: 0px; text-align:center;", required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:location].join(', ')
+                .field
+                  = f.label :city
+                  %br/
+                  = f.text_field :city, class: 'form-control',style:"border-top: 0px; text-align:center;", required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:city].join(', ')
+                .field
+                  = f.label :country
+                  %br/
+                  = f.text_field :contry, class: 'form-control',style:"border-top: 0px; text-align:center;", required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:country].join(', ')
+                  %br/
+                .field
+                  = f.label :pincode
+                  %br/
+                  = f.text_field :pincode, class: 'form-control', style:"border-top: 0px; text-align:center;", required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:pincode].join(', ')
+                  %p{id: "er"}
+                .actions{:style => " padding-top:37px;"}
+                  = f.submit "Update", class: 'primary-btn',style:"border:0px;"
+- content_for :javascript do
+  :javascript
+    $().ready(function(){
+      $("#user_pincode").blur(function(){
+        var pincode = $(this).val();
+        $.ajax({
+          url : "/pincodes/set_pincode/",
+          dataType: "json",
+          type : "get",
+          data: { pincode: pincode },
+          success: function(data) {
+            $('#user_location').val(data['location']);
+            $('#user_city').val(data['city']);
+            $('#user_contry').val(data['country']);
+          },
+          error: function(data) {
+            $('#user_location').val('');
+            $('#user_city').val('');
+            $('#user_contry').val('');
+            alert("Order not Deliver in this code.");
+          }
+        });
+      });
+    });

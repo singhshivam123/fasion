@@ -1,0 +1,2421 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: active_admin_comments; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.active_admin_comments (
+    id bigint NOT NULL,
+    namespace character varying,
+    body text,
+    resource_type character varying,
+    resource_id bigint,
+    author_type character varying,
+    author_id bigint,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.active_admin_comments OWNER TO root;
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.active_admin_comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_admin_comments_id_seq OWNER TO root;
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.active_admin_comments_id_seq OWNED BY public.active_admin_comments.id;
+
+
+--
+-- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.active_storage_attachments (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.active_storage_attachments OWNER TO root;
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.active_storage_attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_storage_attachments_id_seq OWNER TO root;
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.active_storage_attachments_id_seq OWNED BY public.active_storage_attachments.id;
+
+
+--
+-- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.active_storage_blobs (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    filename character varying NOT NULL,
+    content_type character varying,
+    metadata text,
+    byte_size bigint NOT NULL,
+    checksum character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE public.active_storage_blobs OWNER TO root;
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.active_storage_blobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_storage_blobs_id_seq OWNER TO root;
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
+
+
+--
+-- Name: admin_users; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.admin_users (
+    id bigint NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.admin_users OWNER TO root;
+
+--
+-- Name: admin_users_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.admin_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.admin_users_id_seq OWNER TO root;
+
+--
+-- Name: admin_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.admin_users_id_seq OWNED BY public.admin_users.id;
+
+
+--
+-- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.ar_internal_metadata (
+    key character varying NOT NULL,
+    value character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.ar_internal_metadata OWNER TO root;
+
+--
+-- Name: brands; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.brands (
+    id bigint NOT NULL,
+    name character varying,
+    active boolean DEFAULT true,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.brands OWNER TO root;
+
+--
+-- Name: brands_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.brands_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.brands_id_seq OWNER TO root;
+
+--
+-- Name: brands_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.brands_id_seq OWNED BY public.brands.id;
+
+
+--
+-- Name: carts; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.carts (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    product_color_id bigint NOT NULL,
+    product_size_id bigint NOT NULL,
+    quantity integer,
+    total numeric,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.carts OWNER TO root;
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.carts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.carts_id_seq OWNER TO root;
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.carts_id_seq OWNED BY public.carts.id;
+
+
+--
+-- Name: categories; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.categories (
+    id bigint NOT NULL,
+    name character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    active boolean DEFAULT true
+);
+
+
+ALTER TABLE public.categories OWNER TO root;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.categories_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.categories_id_seq OWNER TO root;
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
+
+
+--
+-- Name: cities; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.cities (
+    id bigint NOT NULL,
+    name character varying(100),
+    state_id bigint NOT NULL,
+    active boolean DEFAULT true,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.cities OWNER TO root;
+
+--
+-- Name: cities_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.cities_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cities_id_seq OWNER TO root;
+
+--
+-- Name: cities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.cities_id_seq OWNED BY public.cities.id;
+
+
+--
+-- Name: colors; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.colors (
+    id bigint NOT NULL,
+    name character varying,
+    active boolean,
+    value character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.colors OWNER TO root;
+
+--
+-- Name: colors_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.colors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.colors_id_seq OWNER TO root;
+
+--
+-- Name: colors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.colors_id_seq OWNED BY public.colors.id;
+
+
+--
+-- Name: companies; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.companies (
+    id bigint NOT NULL,
+    name character varying(20),
+    address character varying,
+    mobile character varying(25),
+    email character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    theme character varying
+);
+
+
+ALTER TABLE public.companies OWNER TO root;
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.companies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.companies_id_seq OWNER TO root;
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.companies_id_seq OWNED BY public.companies.id;
+
+
+--
+-- Name: contacts; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.contacts (
+    id bigint NOT NULL,
+    name character varying,
+    email character varying,
+    subject character varying,
+    message text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.contacts OWNER TO root;
+
+--
+-- Name: contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.contacts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.contacts_id_seq OWNER TO root;
+
+--
+-- Name: contacts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.contacts_id_seq OWNED BY public.contacts.id;
+
+
+--
+-- Name: countries; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.countries (
+    id bigint NOT NULL,
+    name character varying(100),
+    active boolean DEFAULT true,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.countries OWNER TO root;
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.countries_id_seq OWNER TO root;
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.countries_id_seq OWNED BY public.countries.id;
+
+
+--
+-- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.friendly_id_slugs (
+    id bigint NOT NULL,
+    slug character varying NOT NULL,
+    sluggable_id integer NOT NULL,
+    sluggable_type character varying(50),
+    scope character varying,
+    created_at timestamp without time zone
+);
+
+
+ALTER TABLE public.friendly_id_slugs OWNER TO root;
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.friendly_id_slugs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.friendly_id_slugs_id_seq OWNER TO root;
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.friendly_id_slugs_id_seq OWNED BY public.friendly_id_slugs.id;
+
+
+--
+-- Name: order_products; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.order_products (
+    id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    order_id bigint NOT NULL,
+    quantity integer,
+    mrp numeric,
+    discount numeric,
+    discount_type character varying,
+    price numeric,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    product_color_id bigint,
+    product_size_id bigint
+);
+
+
+ALTER TABLE public.order_products OWNER TO root;
+
+--
+-- Name: order_products_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.order_products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.order_products_id_seq OWNER TO root;
+
+--
+-- Name: order_products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.order_products_id_seq OWNED BY public.order_products.id;
+
+
+--
+-- Name: orders; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.orders (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    payment_id integer,
+    payment_mode character varying,
+    date timestamp without time zone,
+    subtotal numeric,
+    discount numeric,
+    discount_type character varying,
+    total numeric,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    status character varying
+);
+
+
+ALTER TABLE public.orders OWNER TO root;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.orders_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orders_id_seq OWNER TO root;
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
+
+
+--
+-- Name: pincodes; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.pincodes (
+    id bigint NOT NULL,
+    pincode integer,
+    location character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    city character varying,
+    country character varying
+);
+
+
+ALTER TABLE public.pincodes OWNER TO root;
+
+--
+-- Name: pincodes_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.pincodes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.pincodes_id_seq OWNER TO root;
+
+--
+-- Name: pincodes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.pincodes_id_seq OWNED BY public.pincodes.id;
+
+
+--
+-- Name: product_colors; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.product_colors (
+    id bigint NOT NULL,
+    color_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    active boolean DEFAULT true,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.product_colors OWNER TO root;
+
+--
+-- Name: product_colors_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.product_colors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_colors_id_seq OWNER TO root;
+
+--
+-- Name: product_colors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.product_colors_id_seq OWNED BY public.product_colors.id;
+
+
+--
+-- Name: product_sizes; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.product_sizes (
+    id bigint NOT NULL,
+    size_id bigint NOT NULL,
+    product_id bigint NOT NULL,
+    active boolean DEFAULT true,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.product_sizes OWNER TO root;
+
+--
+-- Name: product_sizes_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.product_sizes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.product_sizes_id_seq OWNER TO root;
+
+--
+-- Name: product_sizes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.product_sizes_id_seq OWNED BY public.product_sizes.id;
+
+
+--
+-- Name: products; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.products (
+    id bigint NOT NULL,
+    name character varying,
+    price numeric,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    description text,
+    mrp numeric,
+    discount numeric,
+    discount_type character varying,
+    category_id bigint,
+    brand_id bigint,
+    available character varying,
+    slug character varying
+);
+
+
+ALTER TABLE public.products OWNER TO root;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.products_id_seq OWNER TO root;
+
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.schema_migrations (
+    version character varying NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO root;
+
+--
+-- Name: seos; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.seos (
+    id bigint NOT NULL,
+    url character varying,
+    title character varying,
+    keyword character varying,
+    discription character varying,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.seos OWNER TO root;
+
+--
+-- Name: seos_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.seos_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.seos_id_seq OWNER TO root;
+
+--
+-- Name: seos_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.seos_id_seq OWNED BY public.seos.id;
+
+
+--
+-- Name: sizes; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.sizes (
+    id bigint NOT NULL,
+    name character varying,
+    active boolean,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.sizes OWNER TO root;
+
+--
+-- Name: sizes_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.sizes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.sizes_id_seq OWNER TO root;
+
+--
+-- Name: sizes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.sizes_id_seq OWNED BY public.sizes.id;
+
+
+--
+-- Name: social_profiles; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.social_profiles (
+    id bigint NOT NULL,
+    provider character varying(20),
+    url character varying,
+    active boolean DEFAULT true,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.social_profiles OWNER TO root;
+
+--
+-- Name: social_profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.social_profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.social_profiles_id_seq OWNER TO root;
+
+--
+-- Name: social_profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.social_profiles_id_seq OWNED BY public.social_profiles.id;
+
+
+--
+-- Name: states; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.states (
+    id bigint NOT NULL,
+    name character varying(100),
+    country_id bigint NOT NULL,
+    active boolean DEFAULT true,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.states OWNER TO root;
+
+--
+-- Name: states_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.states_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.states_id_seq OWNER TO root;
+
+--
+-- Name: states_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.states_id_seq OWNED BY public.states.id;
+
+
+--
+-- Name: testers; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.testers (
+    id bigint NOT NULL,
+    country character varying(100),
+    city character varying(100),
+    state character varying(100),
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+ALTER TABLE public.testers OWNER TO root;
+
+--
+-- Name: testers_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.testers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.testers_id_seq OWNER TO root;
+
+--
+-- Name: testers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.testers_id_seq OWNED BY public.testers.id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: root
+--
+
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    email character varying DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying DEFAULT ''::character varying NOT NULL,
+    reset_password_token character varying,
+    reset_password_sent_at timestamp without time zone,
+    remember_created_at timestamp without time zone,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    gender character varying,
+    mobile character varying,
+    address character varying,
+    location character varying,
+    city character varying,
+    country character varying,
+    pincode integer,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying,
+    state character varying
+);
+
+
+ALTER TABLE public.users OWNER TO root;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+--
+
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO root;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: active_admin_comments id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.active_admin_comments ALTER COLUMN id SET DEFAULT nextval('public.active_admin_comments_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('public.active_storage_attachments_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('public.active_storage_blobs_id_seq'::regclass);
+
+
+--
+-- Name: admin_users id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.admin_users ALTER COLUMN id SET DEFAULT nextval('public.admin_users_id_seq'::regclass);
+
+
+--
+-- Name: brands id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.brands ALTER COLUMN id SET DEFAULT nextval('public.brands_id_seq'::regclass);
+
+
+--
+-- Name: carts id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.carts ALTER COLUMN id SET DEFAULT nextval('public.carts_id_seq'::regclass);
+
+
+--
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
+
+
+--
+-- Name: cities id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.cities ALTER COLUMN id SET DEFAULT nextval('public.cities_id_seq'::regclass);
+
+
+--
+-- Name: colors id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.colors ALTER COLUMN id SET DEFAULT nextval('public.colors_id_seq'::regclass);
+
+
+--
+-- Name: companies id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.companies ALTER COLUMN id SET DEFAULT nextval('public.companies_id_seq'::regclass);
+
+
+--
+-- Name: contacts id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.contacts ALTER COLUMN id SET DEFAULT nextval('public.contacts_id_seq'::regclass);
+
+
+--
+-- Name: countries id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.countries ALTER COLUMN id SET DEFAULT nextval('public.countries_id_seq'::regclass);
+
+
+--
+-- Name: friendly_id_slugs id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.friendly_id_slugs ALTER COLUMN id SET DEFAULT nextval('public.friendly_id_slugs_id_seq'::regclass);
+
+
+--
+-- Name: order_products id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.order_products ALTER COLUMN id SET DEFAULT nextval('public.order_products_id_seq'::regclass);
+
+
+--
+-- Name: orders id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
+
+
+--
+-- Name: pincodes id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.pincodes ALTER COLUMN id SET DEFAULT nextval('public.pincodes_id_seq'::regclass);
+
+
+--
+-- Name: product_colors id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_colors ALTER COLUMN id SET DEFAULT nextval('public.product_colors_id_seq'::regclass);
+
+
+--
+-- Name: product_sizes id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_sizes ALTER COLUMN id SET DEFAULT nextval('public.product_sizes_id_seq'::regclass);
+
+
+--
+-- Name: products id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+
+
+--
+-- Name: seos id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.seos ALTER COLUMN id SET DEFAULT nextval('public.seos_id_seq'::regclass);
+
+
+--
+-- Name: sizes id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sizes ALTER COLUMN id SET DEFAULT nextval('public.sizes_id_seq'::regclass);
+
+
+--
+-- Name: social_profiles id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.social_profiles ALTER COLUMN id SET DEFAULT nextval('public.social_profiles_id_seq'::regclass);
+
+
+--
+-- Name: states id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.states ALTER COLUMN id SET DEFAULT nextval('public.states_id_seq'::regclass);
+
+
+--
+-- Name: testers id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.testers ALTER COLUMN id SET DEFAULT nextval('public.testers_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: active_admin_comments; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.active_admin_comments (id, namespace, body, resource_type, resource_id, author_type, author_id, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: active_storage_attachments; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.active_storage_attachments (id, name, record_type, record_id, blob_id, created_at) FROM stdin;
+10	image	Product	7	10	2020-09-01 13:39:20.493101
+11	image	Product	6	11	2020-09-01 13:39:36.698323
+12	image	Product	5	12	2020-09-01 13:39:52.149997
+13	image	Product	4	13	2020-09-01 13:40:11.930676
+14	image	Product	3	14	2020-09-01 13:40:29.466618
+15	image	Product	2	15	2020-09-01 13:40:50.909311
+16	image	Product	1	16	2020-09-01 13:41:06.952078
+18	image	Product	8	18	2020-09-01 13:48:34.273688
+\.
+
+
+--
+-- Data for Name: active_storage_blobs; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.active_storage_blobs (id, key, filename, content_type, metadata, byte_size, checksum, created_at) FROM stdin;
+10	odbrsfai9vxpuykddqwaklvdxcl9	3.jpg	image/jpeg	{"identified":true,"analyzed":true}	54804	H/fSG/imfEzJ859M17bWew==	2020-09-01 13:39:20.487396
+11	zedjijzztei5ntb3djy9oltdf4ft	6.jpg	image/jpeg	{"identified":true,"analyzed":true}	63274	TUccRwqnawp6CB/uhSmYYA==	2020-09-01 13:39:36.691363
+12	knoj3lqd06xjnlhlpee9x1a9qr9b	11.jpg	image/jpeg	{"identified":true,"analyzed":true}	38988	+1K55ESKByABnk/dgyxqXg==	2020-09-01 13:39:52.146883
+13	orodlidhqw0261kgc1590n3uibr0	8.jpg	image/jpeg	{"identified":true,"analyzed":true}	45739	CO7oysXM8Dw2/YEsRamnYw==	2020-09-01 13:40:11.92423
+14	oz2z6tf2g2rfer75eeiz3pgl7dtt	9.jpg	image/jpeg	{"identified":true,"analyzed":true}	45937	a514Ry+8PHVdVK9eXMAu2A==	2020-09-01 13:40:29.457828
+15	pzfnuumhr4zrw2i8rswtwewlgc97	10.jpg	image/jpeg	{"identified":true,"analyzed":true}	43127	2OfqAADZwSQ3PHMOS/KAuA==	2020-09-01 13:40:50.902527
+16	0icnpkhvj5xxq60qa2xwbwkm80vn	5.jpg	image/jpeg	{"identified":true,"analyzed":true}	64758	lR78IxxOwSG7mcTN1R2Ljg==	2020-09-01 13:41:06.946942
+18	r9giy068nt3gw70k430gsas0sd5y	4.jpg	image/jpeg	{"identified":true,"analyzed":true}	28859	TKIeF+6u5hGoQE+3VMWCvg==	2020-09-01 13:48:34.268493
+\.
+
+
+--
+-- Data for Name: admin_users; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.admin_users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, created_at, updated_at) FROM stdin;
+1	admin@example.com	$2a$12$VsY673gEWxxIWli8WXJo8eaXmz8Zr505AA8sNYCrlBXPB4LzSpCM.	\N	\N	\N	2020-08-10 06:10:43.869336	2020-08-10 06:10:43.869336
+\.
+
+
+--
+-- Data for Name: ar_internal_metadata; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.ar_internal_metadata (key, value, created_at, updated_at) FROM stdin;
+environment	development	2020-08-10 06:08:00.752625	2020-08-10 06:08:00.752625
+\.
+
+
+--
+-- Data for Name: brands; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.brands (id, name, active, created_at, updated_at) FROM stdin;
+1	Abercrombie & Fitch	t	2020-08-10 06:38:08.662288	2020-08-10 06:38:08.662288
+2	Asos	t	2020-08-10 06:38:20.261643	2020-08-10 06:38:20.261643
+3	Bershka	t	2020-08-10 06:38:31.140405	2020-08-10 06:38:31.140405
+4	Missguided	t	2020-08-10 06:38:42.651012	2020-08-10 06:38:42.651012
+5	Zara	t	2020-08-10 06:38:52.547661	2020-08-10 06:38:52.547661
+\.
+
+
+--
+-- Data for Name: carts; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.carts (id, user_id, product_id, product_color_id, product_size_id, quantity, total, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.categories (id, name, created_at, updated_at, active) FROM stdin;
+1	Woman wear	2020-08-10 06:39:56.124051	2020-08-10 06:39:56.124051	t
+2	Man Wear	2020-08-10 06:40:07.320148	2020-08-10 06:40:07.320148	t
+3	Children	2020-08-10 06:40:16.007728	2020-08-10 06:40:16.007728	t
+4	Bags & Purses	2020-08-10 06:40:27.452408	2020-08-10 06:40:27.452408	t
+5	Eyewear	2020-08-10 06:40:36.05846	2020-08-10 06:40:36.05846	t
+6	Footwear	2020-08-10 06:40:46.847126	2020-08-10 06:40:46.847126	t
+7	Home Appliances	2020-08-10 06:41:01.637336	2020-08-10 06:41:01.637336	t
+\.
+
+
+--
+-- Data for Name: cities; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.cities (id, name, state_id, active, created_at, updated_at) FROM stdin;
+1	Visakhapatnam	1	t	2020-08-17 09:19:57.970505	2020-08-17 09:19:57.970505
+2	Guntur	1	t	2020-08-17 09:20:17.231234	2020-08-17 09:20:17.231234
+3	Nellore	1	t	2020-08-17 09:20:28.950783	2020-08-17 09:20:28.950783
+4	Anjaw	2	t	2020-08-17 09:57:18.322906	2020-08-17 09:57:18.322906
+5	Changlang	2	t	2020-08-17 09:57:35.733484	2020-08-17 09:57:35.733484
+6	Dibang Valley	2	t	2020-08-17 09:57:51.987674	2020-08-17 09:57:51.987674
+7	Guwahati	3	t	2020-08-17 09:58:24.684369	2020-08-17 09:58:24.684369
+8	Dibrugarh	3	t	2020-08-17 09:59:34.076508	2020-08-17 09:59:34.076508
+9	Silchar	3	t	2020-08-17 10:00:09.078245	2020-08-17 10:00:09.078245
+10	Surat	7	t	2020-08-19 05:35:38.944083	2020-08-19 05:35:38.944083
+11	Ahmedabad	7	t	2020-08-19 05:36:20.515709	2020-08-19 05:36:20.515709
+12	Patna	4	t	2020-08-19 06:57:57.699988	2020-08-19 06:57:57.699988
+13	Raipur	5	t	2020-08-19 06:58:47.48107	2020-08-19 06:58:47.48107
+14	Panaji	6	t	2020-08-19 06:59:20.800129	2020-08-19 06:59:20.800129
+15	Muzaffarabad	8	t	2020-08-19 06:59:54.261875	2020-08-19 06:59:54.261875
+16	Srinagar city	9	t	2020-08-19 07:00:23.320315	2020-08-19 07:00:23.320315
+17	 Anantnag	10	t	2020-08-19 07:01:09.641099	2020-08-19 07:01:09.641099
+18	Nangarhar	11	t	2020-08-19 07:02:04.378861	2020-08-19 07:02:04.378861
+19	Erebuni	12	t	2020-08-19 07:02:43.173435	2020-08-19 07:02:43.173435
+20	Ashtarak	13	t	2020-08-19 07:03:34.561629	2020-08-19 07:03:34.561629
+21	Aresh Mahal	14	t	2020-08-19 07:04:15.047683	2020-08-19 07:04:15.047683
+22	central Azerbaijan	15	t	2020-08-19 07:05:04.743807	2020-08-19 07:05:04.743807
+23	Vietnamese	16	t	2020-08-19 07:06:56.729118	2020-08-19 07:06:56.729118
+24	Khmer	17	t	2020-08-19 07:07:29.058237	2020-08-19 07:07:29.058237
+25	Yulan magnolia	18	t	2020-08-19 07:08:22.543564	2020-08-19 07:08:22.543564
+26	Ming	19	t	2020-08-19 07:09:00.489981	2020-08-19 07:09:00.489981
+27	Nicosia	20	t	2020-08-19 07:09:43.577301	2020-08-19 07:09:43.577301
+28	Famagusta	21	t	2020-08-19 07:10:31.208005	2020-08-19 07:10:31.208005
+29	Serang	22	t	2020-08-19 07:10:54.78156	2020-08-19 07:10:54.78156
+30	Tilamuta	23	t	2020-08-19 07:11:20.575668	2020-08-19 07:11:20.575668
+31	Khanaqin	24	t	2020-08-19 07:11:38.820392	2020-08-19 07:11:38.820392
+32	Baku	25	t	2020-08-19 07:11:59.377551	2020-08-19 07:11:59.377551
+33	Umm Qasr	26	t	2020-08-19 07:12:20.982433	2020-08-19 07:12:20.982433
+34	Kurdistan	27	t	2020-08-19 07:12:48.857304	2020-08-19 07:12:48.857304
+35	Kangar	28	t	2020-08-19 07:13:09.354895	2020-08-19 07:13:09.354895
+36	Kota Kinabalu	29	t	2020-08-19 07:13:31.640453	2020-08-19 07:13:31.640453
+37	Haa Alif Atoll	30	t	2020-08-19 07:14:02.866327	2020-08-19 07:14:02.866327
+38	Thiladhummathi Atoll	31	t	2020-08-19 07:14:28.593415	2020-08-19 07:14:28.593415
+39	Niislel Khüree	32	t	2020-08-19 07:14:52.851347	2020-08-19 07:14:52.851347
+40	Kalmyk	33	t	2020-08-19 07:15:39.257702	2020-08-19 07:15:39.257702
+41	Taungoo	34	t	2020-08-19 07:16:09.664121	2020-08-19 07:16:09.664121
+42	Sittwe	35	t	2020-08-19 07:16:29.174204	2020-08-19 07:16:29.174204
+43	Nowshera	36	t	2020-08-19 07:16:46.88841	2020-08-19 07:16:46.88841
+44	Quds	37	t	2020-08-19 07:17:39.417657	2020-08-19 07:17:39.417657
+45	Bayt Laḥm	38	t	2020-08-19 07:18:21.669678	2020-08-19 07:18:21.669678
+46	Tagalog	39	t	2020-08-19 07:19:01.33892	2020-08-19 07:19:01.33892
+47	Don Angel	40	t	2020-08-19 07:19:28.136908	2020-08-19 07:19:28.136908
+\.
+
+
+--
+-- Data for Name: colors; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.colors (id, name, active, value, created_at, updated_at) FROM stdin;
+1	blue	t	#0000FF	2020-08-10 06:41:57.29508	2020-08-10 06:42:41.147723
+2	purple	t	#800080	2020-08-10 06:43:01.789296	2020-08-10 06:43:01.789296
+3	green	t	#008000	2020-08-10 06:43:28.276613	2020-08-10 06:43:28.276613
+4	Aqua	t	#00FFFF	2020-08-10 06:43:52.552987	2020-08-10 06:43:52.552987
+5	FUCHSIA	t	#FF00FF	2020-08-10 06:44:13.52089	2020-08-10 06:44:13.52089
+6	NAVY	t	#000080	2020-08-10 06:44:58.223027	2020-08-10 06:44:58.223027
+7	YELLOW	t	#FFFF00	2020-08-10 06:45:17.755911	2020-08-10 06:45:17.755911
+8	MAROON	t	#800000	2020-08-10 06:45:36.907909	2020-08-10 06:45:36.907909
+9	RED	t	#FF0000	2020-08-10 06:45:55.709612	2020-08-10 06:45:55.709612
+10	TEAL	t	#008080	2020-08-10 06:46:21.85025	2020-08-10 06:46:21.85025
+\.
+
+
+--
+-- Data for Name: companies; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.companies (id, name, address, mobile, email, created_at, updated_at, theme) FROM stdin;
+1	Fasion	A-510, Titanium City Center,  Nr. Sachin Tower, 100 feet Road,  Anand Nagar, Satellite,  Ahmedabad, Gujarat, India-380015	8866 549 333	inquiry@softices.academy	2020-08-10 06:14:36.802037	2020-08-13 10:07:37.360102	theme_b
+\.
+
+
+--
+-- Data for Name: contacts; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.contacts (id, name, email, subject, message, created_at, updated_at) FROM stdin;
+1	shivam	semshiboyb07@gmail.com	This is subject	Have a nice day	2020-08-17 06:10:30.656672	2020-08-17 06:10:30.656672
+\.
+
+
+--
+-- Data for Name: countries; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.countries (id, name, active, created_at, updated_at) FROM stdin;
+1	afghanistan	t	2020-08-17 08:06:41.120169	2020-08-19 09:32:34.863677
+2	armenia	t	2020-08-17 08:07:03.383291	2020-08-19 09:32:48.091212
+3	azerbaijan	t	2020-08-17 08:07:19.264078	2020-08-19 09:33:01.098856
+4	cambodia	t	2020-08-17 08:10:59.773473	2020-08-19 09:33:13.279609
+5	china	t	2020-08-17 08:11:11.409919	2020-08-19 09:33:28.487797
+6	cyprus	t	2020-08-17 08:11:30.88417	2020-08-19 09:33:46.883548
+17	philippines	t	2020-08-17 08:15:17.042456	2020-08-19 09:33:56.183495
+16	palestine	t	2020-08-17 08:15:01.907498	2020-08-19 09:34:03.665488
+15	pakistan	t	2020-08-17 08:14:41.752459	2020-08-19 09:34:12.305443
+14	myanmar	t	2020-08-17 08:14:14.368631	2020-08-19 09:34:21.34391
+13	mongolia	t	2020-08-17 08:14:02.788555	2020-08-19 09:34:32.140071
+12	maldives	t	2020-08-17 08:13:31.638932	2020-08-19 09:34:43.449319
+11	malaysia	t	2020-08-17 08:13:21.080999	2020-08-19 09:34:53.414795
+10	iraq	t	2020-08-17 08:12:50.973147	2020-08-19 09:37:10.765917
+9	iran	t	2020-08-17 08:12:41.037316	2020-08-19 09:37:29.7654
+8	indonesia	t	2020-08-17 08:12:25.864208	2020-08-19 09:37:43.136794
+7	india	t	2020-08-17 08:12:11.874024	2020-08-19 09:38:07.369073
+\.
+
+
+--
+-- Data for Name: friendly_id_slugs; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.friendly_id_slugs (id, slug, sluggable_id, sluggable_type, scope, created_at) FROM stdin;
+\.
+
+
+--
+-- Data for Name: order_products; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.order_products (id, product_id, order_id, quantity, mrp, discount, discount_type, price, created_at, updated_at, product_color_id, product_size_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: orders; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.orders (id, user_id, payment_id, payment_mode, date, subtotal, discount, discount_type, total, created_at, updated_at, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: pincodes; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.pincodes (id, pincode, location, created_at, updated_at, city, country) FROM stdin;
+6	\N		2020-08-11 06:50:43.46205	2020-08-11 06:50:43.46205	\N	\N
+8	395023	Ganesh Nagar Bhestan Surat	2020-08-13 06:06:08.989375	2020-08-13 06:46:26.546429	Surat	India
+7	803203	Alawalpur Gaurichak Patna	2020-08-13 06:04:24.690183	2020-08-13 06:46:44.345048	Patna	India
+5	394516	Chorasi Taluk of Surat District	2020-08-10 09:29:01.873776	2020-08-13 06:46:57.179295	Surat	India
+4	395009	Surat City Taluk of Surat District	2020-08-10 09:28:05.568384	2020-08-13 06:47:22.474719	Surat	India
+3	394150	Kamrej Taluk of Surat District	2020-08-10 09:26:35.030752	2020-08-13 06:47:31.404767	Surat	India
+2	395007	Surat Taluk of Surat District	2020-08-10 09:22:10.291862	2020-08-13 06:47:40.055191	Surat	India
+1	395008	Surat City Taluk of Surat District	2020-08-10 09:20:47.926303	2020-08-13 06:47:49.784571	Surat	India
+\.
+
+
+--
+-- Data for Name: product_colors; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.product_colors (id, color_id, product_id, active, created_at, updated_at) FROM stdin;
+1	1	2	t	2020-08-10 07:23:13.668274	2020-08-10 07:23:13.668274
+2	2	2	t	2020-08-10 07:23:23.912076	2020-08-10 07:23:23.912076
+3	2	1	t	2020-08-10 07:23:29.398078	2020-08-10 07:23:29.398078
+4	3	1	t	2020-08-10 07:23:34.198115	2020-08-10 07:23:34.198115
+5	3	3	t	2020-08-10 07:24:09.578649	2020-08-10 07:24:09.578649
+6	4	3	t	2020-08-10 07:24:22.187645	2020-08-10 07:24:22.187645
+7	4	4	t	2020-08-10 07:25:23.966298	2020-08-10 07:25:23.966298
+8	5	4	t	2020-08-10 07:25:29.218073	2020-08-10 07:25:29.218073
+9	5	5	t	2020-08-10 07:25:33.901202	2020-08-10 07:25:33.901202
+10	6	5	t	2020-08-10 07:25:38.530519	2020-08-10 07:25:38.530519
+11	6	6	t	2020-08-10 07:25:42.698744	2020-08-10 07:25:42.698744
+12	7	6	t	2020-08-10 07:25:47.662785	2020-08-10 07:25:47.662785
+13	7	7	t	2020-08-10 07:25:53.339268	2020-08-10 07:25:53.339268
+14	8	7	t	2020-08-10 07:25:57.71405	2020-08-10 07:25:57.71405
+15	8	8	t	2020-08-10 07:26:03.224085	2020-08-10 07:26:03.224085
+16	9	8	t	2020-08-10 07:26:07.855112	2020-08-10 07:26:07.855112
+\.
+
+
+--
+-- Data for Name: product_sizes; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.product_sizes (id, size_id, product_id, active, created_at, updated_at) FROM stdin;
+1	1	2	t	2020-08-10 07:26:34.632369	2020-08-10 07:26:34.632369
+2	2	2	t	2020-08-10 07:26:38.983252	2020-08-10 07:26:38.983252
+3	7	1	t	2020-08-10 07:26:45.96902	2020-08-10 07:26:45.96902
+4	8	1	t	2020-08-10 07:26:50.530538	2020-08-10 07:26:50.530538
+5	8	6	t	2020-08-10 07:26:59.663531	2020-08-10 07:26:59.663531
+6	7	6	t	2020-08-10 07:27:04.901027	2020-08-10 07:27:04.901027
+7	9	8	t	2020-08-10 07:27:15.793479	2020-08-10 07:27:15.793479
+8	10	8	t	2020-08-10 07:27:21.576394	2020-08-10 07:27:21.576394
+9	3	3	t	2020-08-10 07:27:51.555028	2020-08-10 07:27:51.555028
+10	4	3	t	2020-08-10 07:27:57.605239	2020-08-10 07:27:57.605239
+11	4	4	t	2020-08-10 07:28:02.476056	2020-08-10 07:28:02.476056
+12	5	4	t	2020-08-10 07:28:07.602909	2020-08-10 07:28:07.602909
+13	5	5	t	2020-08-10 07:28:19.884259	2020-08-10 07:28:19.884259
+14	1	5	t	2020-08-10 07:28:25.286283	2020-08-10 07:28:25.286283
+15	1	7	t	2020-08-10 07:28:33.102232	2020-08-10 07:28:33.102232
+16	4	7	t	2020-08-10 07:28:40.221548	2020-08-10 07:28:40.221548
+\.
+
+
+--
+-- Data for Name: products; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.products (id, name, price, created_at, updated_at, description, mrp, discount, discount_type, category_id, brand_id, available, slug) FROM stdin;
+7	 Dress               	200.0	2020-08-10 07:21:53.940852	2020-09-01 13:39:20.498262	 Dress is good quality  \r\n	200.0	0.0	%	1	4	yes	dress
+6	 Purse               	342.0	2020-08-10 07:21:12.269371	2020-09-01 13:39:36.703508	 Purse is good quality. \r\n	342.0	0.0	%	4	2	yes	purse
+5	Ledies Top	324.0	2020-08-10 07:20:25.265546	2020-09-01 13:39:52.15761	 Ledies Top             \r\n	324.0	0.0	%	1	5	yes	ledies-top
+4	 Jeans Jeens Shirt   	531.0	2020-08-10 07:18:57.969838	2020-09-01 13:40:11.935369	 Jeans Jeens Shirt      \r\n	532.0	0.0	%	2	4	yes	jeans-jeens-shirt
+3	 Jeans Jeens t-shirt 	432.0	2020-08-10 07:18:08.783191	2020-09-01 13:40:29.474244	 Jeans Jeens t-shirt    \r\n	432.0	0.0	%	2	3	yes	jeans-jeens-t-shirt
+2	 Jeans Jacket        	122.0	2020-08-10 07:16:59.461723	2020-09-01 13:40:50.914381	 Jenas is good.         \r\n	122.0	0.0	%	2	2	yes	jeans-jacket
+1	 Mat                 	129.0	2020-08-10 07:13:29.586947	2020-09-01 13:41:06.954505	 Use in Home            \r\n	129.0	0.0	%	7	1	no	mat
+8	 Shoes               	132.0	2020-08-10 07:22:35.694052	2020-09-01 13:48:34.276632	 Shoes                  \r\n	132.0	0.0	%	6	4	yes	shoes
+\.
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.schema_migrations (version) FROM stdin;
+20200625100530
+20200625100532
+20200625101829
+20200625114012
+20200626035121
+20200626043455
+20200626084527
+20200629072530
+20200629120709
+20200629120956
+20200629124426
+20200630115328
+20200630122923
+20200630123314
+20200630123753
+20200630124425
+20200630130113
+20200701060141
+20200701060531
+20200702122939
+20200702123950
+20200702125040
+20200702125657
+20200702130134
+20200704092204
+20200720035437
+20200720120519
+20200727065009
+20200729100010
+20200806073234
+20200806073250
+20200810083643
+20200813063058
+20200817051848
+20200817052248
+20200817052754
+20200817062033
+20200823135743
+\.
+
+
+--
+-- Data for Name: seos; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.seos (id, url, title, keyword, discription, created_at, updated_at) FROM stdin;
+1	/	Welcome Fasion	Fashion for Women: Latest Fashion Style Guide and Tips | VOGUE India	 Stay updated with Women&#x27;s fashion on Vogue India - the one-stop destination for celebrity and designer fashion news. Get celeb-approved style guides and tips now! 	2020-08-10 06:20:26.537654	2020-08-10 06:20:26.537654
+2	/products	Welcome Product	Product_Keyword	Product_Discription	2020-08-10 06:22:04.086879	2020-08-10 06:22:04.086879
+4	/carts	Shopping Cart | Fasion.com	Viewcart Store, Viewcart Store Online Shopping	Viewcart Online Store in India. Check Viewcart Prices, Ratings &amp; Reviews at Fasion.com. &amp;#10004; Free Shipping &amp;#10004; Cash on Delivery &amp;#10004; Best Offers	2020-08-10 06:29:33.222283	2020-08-10 06:30:37.567163
+3	/contact	Fasion Customer Care &amp; Help Center	Helpcentre Store, Helpcentre Store Online Shopping	Shop for electronics, apparels & more using our Fasion app Free shipping & COD.	2020-08-10 06:27:18.565043	2020-08-10 06:31:27.450498
+5	/orders	Orders Store Online - Buy Orders Online at Best Price in India | Fasion.com	Viewcart Store, Viewcart Store Online Shopping	Viewcart Online Store in India. Check Viewcart Prices, Ratings &amp; Reviews at Fasion.com. &amp;#10004; Free Shipping &amp;#10004; Cash on Delivery &amp;#10004; Best Offers	2020-08-10 06:33:30.447722	2020-08-10 06:33:30.447722
+6	default	Welcome Product	Default_Keyword	Default_Description	2020-08-10 06:33:45.382819	2020-08-10 06:33:45.382819
+\.
+
+
+--
+-- Data for Name: sizes; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.sizes (id, name, active, created_at, updated_at) FROM stdin;
+1	XS	t	2020-08-10 07:02:11.280454	2020-08-10 07:02:11.280454
+2	S	t	2020-08-10 07:02:18.694067	2020-08-10 07:02:18.694067
+3	M	t	2020-08-10 07:02:25.097419	2020-08-10 07:02:25.097419
+4	L	t	2020-08-10 07:02:32.808225	2020-08-10 07:02:32.808225
+5	XL	t	2020-08-10 07:02:40.191499	2020-08-10 07:02:40.191499
+6	XXL	t	2020-08-10 07:02:47.077631	2020-08-10 07:02:47.077631
+7	Big	t	2020-08-10 07:02:52.975216	2020-08-10 07:02:52.975216
+8	Small	t	2020-08-10 07:03:05.461056	2020-08-10 07:03:05.461056
+9	8	t	2020-08-10 07:03:12.062622	2020-08-10 07:03:12.062622
+10	9	t	2020-08-10 07:03:18.380573	2020-08-10 07:03:18.380573
+\.
+
+
+--
+-- Data for Name: social_profiles; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.social_profiles (id, provider, url, active, created_at, updated_at) FROM stdin;
+1	facebook	https://www.facebook.com/softices.academy	t	2020-08-10 06:50:54.749335	2020-08-10 06:50:54.749335
+2	twitter	https://twitter.com/softicesacademy	t	2020-08-10 06:51:21.317578	2020-08-10 06:51:21.317578
+3	instagram	https://www.instagram.com/softices_academy/	t	2020-08-10 06:51:52.802059	2020-08-10 06:51:52.802059
+4	pinterest	https://in.pinterest.com/softicesacademy/	t	2020-08-10 06:52:13.542181	2020-08-10 06:52:13.542181
+\.
+
+
+--
+-- Data for Name: states; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.states (id, name, country_id, active, created_at, updated_at) FROM stdin;
+1	Andhra Pradesh	7	t	2020-08-17 09:03:49.197064	2020-08-17 09:03:49.197064
+2	Arunachal Pradesh	7	t	2020-08-17 09:10:37.778624	2020-08-17 09:10:37.778624
+3	Assam	7	t	2020-08-17 09:11:39.542846	2020-08-17 09:11:39.542846
+4	Bihar	7	t	2020-08-17 09:11:56.032	2020-08-17 09:11:56.032
+5	Chhattisgarh	7	t	2020-08-17 09:12:15.508429	2020-08-17 09:12:15.508429
+6	Goa	7	t	2020-08-17 09:16:46.139621	2020-08-17 09:16:46.139621
+7	Gujarat	7	t	2020-08-17 09:17:10.17228	2020-08-17 09:17:10.17228
+8	Azad Kashmir	15	t	2020-08-18 07:14:26.843003	2020-08-18 07:14:26.843003
+9	Kabul	1	t	2020-08-18 10:09:19.47908	2020-08-18 10:09:19.47908
+10	Herat	1	t	2020-08-18 10:09:41.132769	2020-08-18 10:09:41.132769
+11	Jalalabad	1	t	2020-08-18 10:09:57.801253	2020-08-18 10:09:57.801253
+12	Yerevan	2	t	2020-08-19 06:33:54.175023	2020-08-19 06:33:54.175023
+13	Aragatsotni Marz	2	t	2020-08-19 06:34:10.581877	2020-08-19 06:34:10.581877
+14	Agdash	3	t	2020-08-19 06:34:44.788052	2020-08-19 06:34:44.788052
+15	Agjabadi	3	t	2020-08-19 06:35:01.931624	2020-08-19 06:35:01.931624
+16	Koh Kong	4	t	2020-08-19 06:36:15.822022	2020-08-19 06:36:15.822022
+17	Mondulkiri	4	t	2020-08-19 06:36:30.593004	2020-08-19 06:36:30.593004
+18	Shanghai	5	t	2020-08-19 06:37:14.0882	2020-08-19 06:37:14.0882
+19	Beijing	5	t	2020-08-19 06:37:26.509137	2020-08-19 06:37:26.509137
+20	Larnaca	6	t	2020-08-19 06:38:07.780192	2020-08-19 06:38:07.780192
+21	Limassol	6	t	2020-08-19 06:38:21.589391	2020-08-19 06:38:21.589391
+22	Banten	8	t	2020-08-19 06:39:00.365146	2020-08-19 06:39:00.365146
+23	Gorontalo	8	t	2020-08-19 06:39:12.79883	2020-08-19 06:39:12.79883
+24	Ardalan	9	t	2020-08-19 06:40:37.613307	2020-08-19 06:40:37.613307
+25	Azerbaijan	9	t	2020-08-19 06:40:51.440702	2020-08-19 06:40:51.440702
+26	Basra	10	t	2020-08-19 06:41:48.023819	2020-08-19 06:41:48.023819
+27	Dahuk	10	t	2020-08-19 06:41:57.660371	2020-08-19 06:41:57.660371
+28	Perlis	11	t	2020-08-19 06:42:31.512432	2020-08-19 06:42:31.512432
+29	Sabah	11	t	2020-08-19 06:42:42.149811	2020-08-19 06:42:42.149811
+30	Dhidhdhoo	12	t	2020-08-19 06:44:17.018869	2020-08-19 06:44:17.018869
+31	Kulhudhuffushi	12	t	2020-08-19 06:44:32.149135	2020-08-19 06:44:32.149135
+32	Bogd Khanate of Mongolia	13	t	2020-08-19 06:45:26.841232	2020-08-19 06:45:26.841232
+33	Republic of Oirat-Kalmyk	13	t	2020-08-19 06:45:36.787854	2020-08-19 06:45:36.787854
+34	Bago Region	14	t	2020-08-19 06:47:27.511902	2020-08-19 06:47:27.511902
+35	Rakhine State	14	t	2020-08-19 06:47:39.429577	2020-08-19 06:47:39.429577
+36	Khyber Pakhtunkhwa	15	t	2020-08-19 06:48:35.182057	2020-08-19 06:48:35.182057
+39	Alaminos	17	t	2020-08-19 06:51:51.675858	2020-08-19 06:51:51.675858
+40	Angeles	17	t	2020-08-19 06:52:04.564072	2020-08-19 06:52:04.564072
+38	Bethlehem Governorate	16	t	2020-08-19 06:49:46.074461	2020-08-19 06:53:25.525313
+37	Jerusalem Governorate	16	t	2020-08-19 06:49:32.631115	2020-08-19 06:53:41.283197
+\.
+
+
+--
+-- Data for Name: testers; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.testers (id, country, city, state, created_at, updated_at) FROM stdin;
+37	7	\N	\N	2020-08-19 13:57:09.209391	2020-08-19 13:57:09.209391
+38	7	10	7	2020-08-19 14:07:15.562998	2020-08-19 14:07:15.562998
+39	8	30	23	2020-08-19 14:10:13.99745	2020-08-19 14:10:13.99745
+40	8	30	23	2020-08-19 14:20:41.419361	2020-08-19 14:20:41.419361
+41	8	30	23	2020-08-19 14:23:37.078819	2020-08-19 14:23:37.078819
+42	8	30	23	2020-08-19 14:24:56.828274	2020-08-19 14:24:56.828274
+43	8	30	23	2020-08-19 14:25:40.147943	2020-08-19 14:25:40.147943
+44	8	30	23	2020-08-22 10:38:35.144278	2020-08-22 10:38:35.144278
+45	8	30	23	2020-08-22 11:01:17.941453	2020-08-22 11:01:17.941453
+46	8	30	23	2020-08-22 11:04:34.044544	2020-08-22 11:04:34.044544
+47	7	11	7	2020-08-23 12:55:59.464028	2020-08-23 12:55:59.464028
+48	1	17	10	2020-08-23 13:25:09.658624	2020-08-23 13:25:09.658624
+49	10	34	27	2020-08-23 13:43:15.247313	2020-08-23 13:43:15.247313
+50	3	22	15	2020-08-23 13:56:38.951339	2020-08-23 13:56:38.951339
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.users (id, email, encrypted_password, reset_password_token, reset_password_sent_at, remember_created_at, created_at, updated_at, first_name, last_name, gender, mobile, address, location, city, country, pincode, confirmation_token, confirmed_at, confirmation_sent_at, unconfirmed_email, state) FROM stdin;
+7	semshiboyb07@gmail.com	$2a$12$d14isx/SAAyuUk8Jz/In4eJyirb85om.P8lrrs7lcY32CzT25xfJO	\N	\N	\N	2020-09-01 13:36:58.066384	2020-09-01 13:37:26.847573	Shivam	Singh	male	\N	\N	\N	\N	\N	\N	ArbmjmvG4Q6ABi5F991r	2020-09-01 13:37:26.846455	2020-09-01 13:36:58.066535	\N	\N
+\.
+
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.active_admin_comments_id_seq', 1, false);
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.active_storage_attachments_id_seq', 18, true);
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.active_storage_blobs_id_seq', 18, true);
+
+
+--
+-- Name: admin_users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.admin_users_id_seq', 1, true);
+
+
+--
+-- Name: brands_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.brands_id_seq', 5, true);
+
+
+--
+-- Name: carts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.carts_id_seq', 23, true);
+
+
+--
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.categories_id_seq', 7, true);
+
+
+--
+-- Name: cities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.cities_id_seq', 47, true);
+
+
+--
+-- Name: colors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.colors_id_seq', 10, true);
+
+
+--
+-- Name: companies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.companies_id_seq', 1, true);
+
+
+--
+-- Name: contacts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.contacts_id_seq', 1, true);
+
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.countries_id_seq', 17, true);
+
+
+--
+-- Name: friendly_id_slugs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.friendly_id_slugs_id_seq', 1, false);
+
+
+--
+-- Name: order_products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.order_products_id_seq', 6, true);
+
+
+--
+-- Name: orders_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.orders_id_seq', 7, true);
+
+
+--
+-- Name: pincodes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.pincodes_id_seq', 8, true);
+
+
+--
+-- Name: product_colors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.product_colors_id_seq', 16, true);
+
+
+--
+-- Name: product_sizes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.product_sizes_id_seq', 16, true);
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.products_id_seq', 8, true);
+
+
+--
+-- Name: seos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.seos_id_seq', 6, true);
+
+
+--
+-- Name: sizes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.sizes_id_seq', 10, true);
+
+
+--
+-- Name: social_profiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.social_profiles_id_seq', 4, true);
+
+
+--
+-- Name: states_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.states_id_seq', 40, true);
+
+
+--
+-- Name: testers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.testers_id_seq', 50, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 7, true);
+
+
+--
+-- Name: active_admin_comments active_admin_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.active_admin_comments
+    ADD CONSTRAINT active_admin_comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.active_storage_blobs
+    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: admin_users admin_users_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.admin_users
+    ADD CONSTRAINT admin_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.ar_internal_metadata
+    ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: brands brands_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.brands
+    ADD CONSTRAINT brands_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: carts carts_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT carts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.categories
+    ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cities cities_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.cities
+    ADD CONSTRAINT cities_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: colors colors_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.colors
+    ADD CONSTRAINT colors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: companies companies_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.companies
+    ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: contacts contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.contacts
+    ADD CONSTRAINT contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: countries countries_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.countries
+    ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: friendly_id_slugs friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.friendly_id_slugs
+    ADD CONSTRAINT friendly_id_slugs_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: order_products order_products_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT order_products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pincodes pincodes_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.pincodes
+    ADD CONSTRAINT pincodes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_colors product_colors_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_colors
+    ADD CONSTRAINT product_colors_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_sizes product_sizes_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_sizes
+    ADD CONSTRAINT product_sizes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.schema_migrations
+    ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: seos seos_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.seos
+    ADD CONSTRAINT seos_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sizes sizes_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.sizes
+    ADD CONSTRAINT sizes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: social_profiles social_profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.social_profiles
+    ADD CONSTRAINT social_profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: states states_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.states
+    ADD CONSTRAINT states_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: testers testers_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.testers
+    ADD CONSTRAINT testers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_active_admin_comments_on_author_type_and_author_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_active_admin_comments_on_author_type_and_author_id ON public.active_admin_comments USING btree (author_type, author_id);
+
+
+--
+-- Name: index_active_admin_comments_on_namespace; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_active_admin_comments_on_namespace ON public.active_admin_comments USING btree (namespace);
+
+
+--
+-- Name: index_active_admin_comments_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_active_admin_comments_on_resource_type_and_resource_id ON public.active_admin_comments USING btree (resource_type, resource_id);
+
+
+--
+-- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storage_attachments USING btree (blob_id);
+
+
+--
+-- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_admin_users_on_email; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_admin_users_on_email ON public.admin_users USING btree (email);
+
+
+--
+-- Name: index_admin_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_admin_users_on_reset_password_token ON public.admin_users USING btree (reset_password_token);
+
+
+--
+-- Name: index_carts_on_product_color_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_carts_on_product_color_id ON public.carts USING btree (product_color_id);
+
+
+--
+-- Name: index_carts_on_product_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_carts_on_product_id ON public.carts USING btree (product_id);
+
+
+--
+-- Name: index_carts_on_product_size_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_carts_on_product_size_id ON public.carts USING btree (product_size_id);
+
+
+--
+-- Name: index_carts_on_user_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_carts_on_user_id ON public.carts USING btree (user_id);
+
+
+--
+-- Name: index_cities_on_state_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_cities_on_state_id ON public.cities USING btree (state_id);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON public.friendly_id_slugs USING btree (slug, sluggable_type);
+
+
+--
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope ON public.friendly_id_slugs USING btree (slug, sluggable_type, scope);
+
+
+--
+-- Name: index_friendly_id_slugs_on_sluggable_type_and_sluggable_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_friendly_id_slugs_on_sluggable_type_and_sluggable_id ON public.friendly_id_slugs USING btree (sluggable_type, sluggable_id);
+
+
+--
+-- Name: index_order_products_on_order_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_order_products_on_order_id ON public.order_products USING btree (order_id);
+
+
+--
+-- Name: index_order_products_on_product_color_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_order_products_on_product_color_id ON public.order_products USING btree (product_color_id);
+
+
+--
+-- Name: index_order_products_on_product_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_order_products_on_product_id ON public.order_products USING btree (product_id);
+
+
+--
+-- Name: index_order_products_on_product_size_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_order_products_on_product_size_id ON public.order_products USING btree (product_size_id);
+
+
+--
+-- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_orders_on_user_id ON public.orders USING btree (user_id);
+
+
+--
+-- Name: index_product_colors_on_color_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_product_colors_on_color_id ON public.product_colors USING btree (color_id);
+
+
+--
+-- Name: index_product_colors_on_product_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_product_colors_on_product_id ON public.product_colors USING btree (product_id);
+
+
+--
+-- Name: index_product_sizes_on_product_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_product_sizes_on_product_id ON public.product_sizes USING btree (product_id);
+
+
+--
+-- Name: index_product_sizes_on_size_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_product_sizes_on_size_id ON public.product_sizes USING btree (size_id);
+
+
+--
+-- Name: index_products_on_brand_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_products_on_brand_id ON public.products USING btree (brand_id);
+
+
+--
+-- Name: index_products_on_category_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_products_on_category_id ON public.products USING btree (category_id);
+
+
+--
+-- Name: index_products_on_slug; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_products_on_slug ON public.products USING btree (slug);
+
+
+--
+-- Name: index_states_on_country_id; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE INDEX index_states_on_country_id ON public.states USING btree (country_id);
+
+
+--
+-- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (email);
+
+
+--
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: root
+--
+
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
+
+
+--
+-- Name: product_colors fk_rails_1f1a27307c; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_colors
+    ADD CONSTRAINT fk_rails_1f1a27307c FOREIGN KEY (color_id) REFERENCES public.colors(id);
+
+
+--
+-- Name: product_sizes fk_rails_2800b7614c; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_sizes
+    ADD CONSTRAINT fk_rails_2800b7614c FOREIGN KEY (size_id) REFERENCES public.sizes(id);
+
+
+--
+-- Name: product_colors fk_rails_36b75ac856; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_colors
+    ADD CONSTRAINT fk_rails_36b75ac856 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: states fk_rails_40bd891262; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.states
+    ADD CONSTRAINT fk_rails_40bd891262 FOREIGN KEY (country_id) REFERENCES public.countries(id);
+
+
+--
+-- Name: cities fk_rails_59b5e22e07; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.cities
+    ADD CONSTRAINT fk_rails_59b5e22e07 FOREIGN KEY (state_id) REFERENCES public.states(id);
+
+
+--
+-- Name: carts fk_rails_763300eb86; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT fk_rails_763300eb86 FOREIGN KEY (product_color_id) REFERENCES public.product_colors(id);
+
+
+--
+-- Name: carts fk_rails_916f2a1419; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT fk_rails_916f2a1419 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: order_products fk_rails_96c0709f78; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT fk_rails_96c0709f78 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: carts fk_rails_e9b274fad8; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT fk_rails_e9b274fad8 FOREIGN KEY (product_size_id) REFERENCES public.product_sizes(id);
+
+
+--
+-- Name: carts fk_rails_ea59a35211; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.carts
+    ADD CONSTRAINT fk_rails_ea59a35211 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- Name: order_products fk_rails_f40b8ccee4; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.order_products
+    ADD CONSTRAINT fk_rails_f40b8ccee4 FOREIGN KEY (order_id) REFERENCES public.orders(id);
+
+
+--
+-- Name: product_sizes fk_rails_f477a9dc4a; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.product_sizes
+    ADD CONSTRAINT fk_rails_f477a9dc4a FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
+-- Name: orders fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+

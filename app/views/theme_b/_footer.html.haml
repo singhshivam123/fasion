@@ -1,0 +1,63 @@
+/ Footer Section Begin
+%footer.footer-section
+  .container
+    .row
+      .col-lg-3
+        .footer-left
+          .footer-logo
+            %a{href: "#"}
+              = image_tag "theme_b/footer-logo.png"
+          %ul
+            %li= @company.address
+            %br
+            %li= @company.mobile
+            %li= @company.email
+          .footer-social
+            - @profile.each do |profile|
+              %a{href: "#{profile.url}", target: "_blank"}
+                %i{class: "fa fa-#{profile.provider}"}
+      .col-lg-2.offset-lg-1
+        .footer-widget
+          %h5 Information
+          %ul
+            %li
+              %a{href: "#"} About Us
+            %li
+              %a{href: "#"} Checkout
+            %li
+              %a{href: "#"} Contact
+            %li
+              %a{href: "#"} Serivius
+      .col-lg-2
+        .footer-widget
+          %h5 My Account
+          %ul
+            %li
+              %a{href: "#"} My Account
+            %li
+              %a{href: "#"} Contact
+            %li
+              %a{href: "#"} Shopping Cart
+            %li
+              %a{href: "#"} Shop
+      .col-lg-4
+        .newslatter-item
+          %h5 Join Our Newsletter Now
+          %p Get E-mail updates about our latest shop and special offers.
+  .copyright-reserved
+    .container
+      .row
+        .col-lg-12
+          .copyright-text
+            / Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+            Copyright ©
+            :javascript
+              document.write(new Date().getFullYear());
+            All rights reserved | This template is made with
+            %i.fa.fa-heart-o{"aria-hidden": "true"}
+            by
+            %a{href: "https://softices.com/", target: "_blank"} Softices
+            / Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+          .payment-pic
+            = image_tag "theme_b/payment-method.png"
+/ Footer Section End

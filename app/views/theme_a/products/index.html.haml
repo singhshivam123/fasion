@@ -1,0 +1,89 @@
+.page-top-info
+  .container
+    %h4 Product Page
+    .site-pagination
+      %a{href: "#{root_path}"} Home
+      \/
+      %a{href: "#{products_path}"} Products
+      \/
+
+/ Page info end
+/ Category section
+
+%section.category-section.spad
+  .container
+    .row
+      .col-lg-3.order-2.order-lg-1
+        %h3 For Filter
+        %br
+          %ul.main-menu{style: "border-bottom: 2px solid #ebebeb; margin-bottom: 25px; padding-bottom: 10px;"}
+            %li
+              %a{style: "float: left; font-size: 27px;"} Sorting
+              %i.fa.fa-sort-desc{style: "padding-top: 14px;"}
+              %ul.sub-menu
+                %li
+                  = link_to "All", products_path
+                %li
+                  %a{href: "#{products_path(order: 'desc')}"} High To Low
+                %li
+                  %a{href: "#{products_path(order: 'asc')}"} Low To High
+          .filter-widget
+            %h2.fw-title Categories
+            %ul.category-menu
+              %li
+                %a{href: "#{products_path}"}All PRODUCTS
+              - @categories.each do |category|
+                %li
+                  %a{href: "#{products_path(category_id: category)}"}
+                    = category.name
+                    %span= "(#{Product.where(category_id: category.id).count})"
+          .filter-widget
+            %h2.fw-title Brand
+            %ul.category-menu
+              %li
+                %a{href: "#{products_path}"}All PRODUCTS
+              - @brands.each do |brand|
+                %li
+                  %a{href: "#{products_path(brand_id: brand)}"}
+                    = brand.name
+                    %span= "(#{Product.where(brand_id: brand.id).count})"
+      .col-lg-9.order-1.order-lg-2.mb-5.mb-lg-0
+        .row
+          - @products.each do |product|
+            .col-lg-4.col-sm-6
+              .product-item
+                .pi-pic
+                  - if product.available == "yes"
+                    %div
+                  - else
+                    .tag-new{style: "width: 96px;  line-height: 2;"} Out of Stock
+                  %a{href: "#{product_path(product)}"}
+                    = image_tag product.image
+                  = form_with(url: carts_path, model: @cart, local: true) do |form|
+                    .field
+                      = form.hidden_field :user_id, value: current_user.id if user_signed_in?
+                    .field
+                      = form.hidden_field :product_id, value: product.id
+                    .field
+                      = form.hidden_field :quantity, value: 1
+                    .field
+                      = form.hidden_field :total, value: product.mrp
+                    .field
+                      = form.hidden_field :product_color_id, value: 1
+                    .field
+                      = form.hidden_field :product_size_id, value: 1
+                    .pi-links
+                      - unless user_signed_in? && Cart.where(user_id: current_user.id).pluck(:product_id).include?(product.id)
+                        = form.submit 'Add to Cart', class: 'btn' if product.available == "yes"
+                      - else
+                        %a{href: "#{carts_path}", style: "background: none; width: 120px;"}Go To Cart
+                .pi-text
+                  %h6= product.mrp
+                  %p= product.name
+          .text-center.w-100.pt-3
+            .cart-table{style: "background: white;"}
+              .total-cost{style: "background: white;"}
+                %h6{ style: "color: red;"}
+                  = paginate @products
+            %h2= "No Product" if @products.blank?
+            %br

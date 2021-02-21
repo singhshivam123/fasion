@@ -1,0 +1,55 @@
+%header.header-section
+  .header-top
+    .container
+      .row
+        .col-lg-2.text-center.text-lg-left
+          / logo
+          %a.site-logo{href: "#{root_path}"}
+            %h2 FASION
+        .col-xl-6.col-lg-5
+          = form_tag products_path, method: 'get', class: 'header-search-form', style: 'background: #f0f0f0; border-radius: 50px;' do
+            .row.address-inputs
+              .col-md-11
+                = text_field_tag :name, params[:name], placeholder: "Type Product Name"
+              .col-md-1
+                %button{type: 'submit', name: 'commit'}
+                  %i.flaticon-search
+        .col-xl-4.col-lg-5
+          .user-panel
+            .up-item
+              - if user_signed_in?
+                %ul.main-menu
+                  %li
+                    %i.flaticon-profile
+                    %a= "#{current_user.first_name} #{current_user.last_name}"
+                    %ul.sub-menu
+                      %li
+                        = link_to "Profile", current_user
+                      %li
+                        = link_to "Edit Profile", edit_user_registration_path
+                      %li
+                        = link_to "Sign Out", destroy_user_session_path, method: :delete
+                      %li
+                        %a{href: "#{orders_path}"} Orders
+              - else
+                %a{href: "#{new_user_session_path}"} Sign
+                In or
+                %a{href: "#{new_user_registration_path}"} Create Account
+            .up-item
+              .shopping-card
+                %i.flaticon-bag
+                - if @no_of_cart.blank?
+                  %span= 0
+                - else
+                  %span= @no_of_cart
+              %a{href: "#{carts_path}"} Shopping Cart
+  %nav.main-navbar
+    .container
+      / menu
+      %ul.main-menu
+        %li
+          %a{href: "#{root_path}"} Home
+        %li
+          %a{href: "#{products_path}"} Product
+        %li
+          %a{href: "#{contact_path}"} Contact

@@ -1,0 +1,265 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Hero Section Begin
+%section.hero-section
+  .hero-items.owl-carousel
+    .single-hero-items.set-bg{"data-setbg": (asset_path "theme_b/hero-1.jpg")}
+      .container
+        .row
+          .col-lg-5
+            %span Bag,kids
+            %h1 Black friday
+            %p
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore
+            %a.primary-btn{href: "#{products_path}"} Shop Now
+        .off-card
+          %h2
+            Sale
+            %span 50%
+    .single-hero-items.set-bg{"data-setbg": (asset_path "theme_b/hero-2.jpg")}
+      .container
+        .row
+          .col-lg-5
+            %span Bag,kids
+            %h1 Black friday
+            %p
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+              incididunt ut labore et dolore
+            %a.primary-btn{href: "#{products_path}"} Shop Now
+        .off-card
+          %h2
+            Sale
+            %span 50%
+/ Hero Section End
+/ Banner Section Begin
+.banner-section.spad
+  .container-fluid
+/ Banner Section End
+/ Women Banner Section Begin
+%section.women-banner.spad
+  .container-fluid
+    .row
+      .col-lg-3
+        .product-large.set-bg{"data-setbg": (asset_path "theme_b/products/women-large.jpg")}
+          %h2 Women’s
+          %a{href: "#"} Discover More
+      .col-lg-8.offset-lg-1
+        .filter-control{style: "font-size: 25px;"}
+        .product-slider.owl-carousel
+          - @products.where(category_id: Category.where(name: "Woman wear").pluck(:id)).each do |product|
+            .product-item
+              .pi-pic
+                %a{href: "#{product_path(product.slug)}"}
+                  = image_tag product.image, style: "height: 300px; width: 180px;"
+                %div
+                  - if product.available == "yes"
+                    %p
+                  - elsif product.available == "no"
+                    .sale{style: "margin-bottom: 3px; margin-left: 2px;"} Out of Stock
+                %ul
+                  %li.quick-view
+                    %a{href: "#{product_path(product.slug)}"} + Quick View
+              .pi-text
+                .catagory-name
+                %a{href: "#"}
+                  %h5= product.name
+                .product-price
+                  = "$#{product.price}.00"
+                  %span $35.00
+                .product-price
+                  discount :
+                  = "#{product.discount}%"
+/ Women Banner Section End
+/ Deal Of The Week Section Begin
+%section.deal-of-week.set-bg.spad{"data-setbg": (asset_path "theme_b/time-bg.jpg")}
+  .container
+    .col-lg-6.text-center
+      .section-title
+        %h2 Deal Of The Week
+        %p
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+          %br/
+          do ipsum dolor sit amet,
+          consectetur adipisicing elit
+        .product-price
+          $35.00
+          %span / HanBag
+      #countdown.countdown-timer
+        .cd-item
+          %span 56
+          %p Days
+        .cd-item
+          %span 12
+          %p Hrs
+        .cd-item
+          %span 40
+          %p Mins
+        .cd-item
+          %span 52
+          %p Secs
+      %a.primary-btn{href: "#{products_path}"} Shop Now
+/ Deal Of The Week Section End
+/ Man Banner Section Begin
+%section.man-banner.spad
+  .container-fluid
+    .row
+      .col-lg-8
+        .filter-control
+        .product-slider.owl-carousel
+          - @products.where(category_id: Category.where(name: "Man Wear").pluck(:id)).each do |product|
+            .product-item
+              .pi-pic
+                %a{href: "#{product_path(product.slug)}"}
+                  = image_tag product.image, style: "height: 300px; width: 180px;"
+                %div
+                - if product.available == "yes"
+                  %p
+                - elsif product.available == "no"
+                  .sale{style: "margin-bottom: 3px; margin-left: 3px;"} Out of Stock
+                %ul
+                  %li.quick-view
+                    %a{href: "#{product_path(product.slug)}"} + Quick View
+              .pi-text
+                .catagory-name
+                %a{href: "#"}
+                  %h5= product.name
+                .product-price
+                  = "$#{product.price}.00"
+                  %span $35.00
+                .product-price
+                  discount :
+                  = "#{product.discount}%"
+      .col-lg-3.offset-lg-1
+        .product-large.set-bg.m-large{"data-setbg": (asset_path "theme_b/products/man-large.jpg")}
+          %h2 Men’s
+          %a{href: "#"} Discover More
+/ Man Banner Section End
+/ Instagram Section Begin
+.instagram-photo
+  .insta-item.set-bg{"data-setbg": (asset_path "theme_b/insta-1.jpg")}
+    .inside-text
+      %i.fa.fa-instagram
+      %h5
+        %a{href: "#"} colorlib_Collection
+  .insta-item.set-bg{"data-setbg": (asset_path "theme_b/insta-2.jpg")}
+    .inside-text
+      %i.fa.fa-instagram
+      %h5
+        %a{href: "#"} colorlib_Collection
+  .insta-item.set-bg{"data-setbg": (asset_path "theme_b/insta-3.jpg")}
+    .inside-text
+      %i.fa.fa-instagram
+      %h5
+        %a{href: "#"} colorlib_Collection
+  .insta-item.set-bg{"data-setbg": (asset_path "theme_b/insta-4.jpg")}
+    .inside-text
+      %i.fa.fa-instagram
+      %h5
+        %a{href: "#"} colorlib_Collection
+  .insta-item.set-bg{"data-setbg": (asset_path "theme_b/insta-5.jpg")}
+    .inside-text
+      %i.fa.fa-instagram
+      %h5
+        %a{href: "#"} colorlib_Collection
+  .insta-item.set-bg{"data-setbg": (asset_path "theme_b/insta-6.jpg")}
+    .inside-text
+      %i.fa.fa-instagram
+      %h5
+        %a{href: "#"} colorlib_Collection
+/ Instagram Section End
+/ Latest Blog Section Begin
+%section.latest-blog.spad
+  .container
+    .row
+      .col-lg-12
+        .section-title
+          %h2 From The Blog
+    .row
+      .col-lg-4.col-md-6
+        .single-latest-blog
+          = image_tag "theme_b/latest-1.jpg"
+          .latest-text
+            .tag-list
+              .tag-item
+                %i.fa.fa-calendar-o
+                May 4,2019
+              .tag-item
+                %i.fa.fa-comment-o
+                5
+            %a{href: "#"}
+              %h4 The Best Street Style From London Fashion Week
+            %p Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat
+      .col-lg-4.col-md-6
+        .single-latest-blog
+          = image_tag "theme_b/latest-2.jpg"
+          .latest-text
+            .tag-list
+              .tag-item
+                %i.fa.fa-calendar-o
+                May 4,2019
+              .tag-item
+                %i.fa.fa-comment-o
+                5
+            %a{href: "#"}
+              %h4 Vogue's Ultimate Guide To Autumn/Winter 2019 Shoes
+            %p Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat
+      .col-lg-4.col-md-6
+        .single-latest-blog
+          = image_tag "theme_b/latest-3.jpg"
+          .latest-text
+            .tag-list
+              .tag-item
+                %i.fa.fa-calendar-o
+                May 4,2019
+              .tag-item
+                %i.fa.fa-comment-o
+                5
+            %a{href: "#"}
+              %h4 How To Brighten Your Wardrobe With A Dash Of Lime
+            %p Sed quia non numquam modi tempora indunt ut labore et dolore magnam aliquam quaerat
+    .benefit-items
+      .row
+        .col-lg-4
+          .single-benefit
+            .sb-icon
+              = image_tag "theme_b/icon-1.png"
+            .sb-text
+              %h6 Free Shipping
+              %p For all order over 99$
+        .col-lg-4
+          .single-benefit
+            .sb-icon
+              = image_tag "theme_b/icon-2.png"
+            .sb-text
+              %h6 Delivery On Time
+              %p If good have prolems
+        .col-lg-4
+          .single-benefit
+            .sb-icon
+              = image_tag "theme_b/icon-1.png"
+            .sb-text
+              %h6 Secure Payment
+              %p 100% secure payment
+/ Latest Blog Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

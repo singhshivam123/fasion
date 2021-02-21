@@ -1,0 +1,71 @@
+.contact-section
+  .container
+    .row.justify-content-center
+      .col-lg-12
+        .text-center
+          .login-form
+            %h2 Sign up
+            = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+              .row
+                .col-6
+                  .field
+                    = f.label :first_name
+                    %br/
+                    = f.text_field :first_name, autofocus: true, class: 'form-control', required: true
+                    - if @user.errors.any?
+                      %p
+                        = @user.errors.messages[:first_name].join(', ')
+                  .field
+                    = f.label :last_name
+                    %br/
+                    = f.text_field :last_name, class: 'form-control', required: true
+                    - if @user.errors.any?
+                      %p
+                        = @user.errors.messages[:last_name].join(', ')
+                  .row{style: "margin-top: 11px;"}
+                    .col-6
+                      = f.label :gender
+                    .col-6{style: "margin-left: -26px; padding-left: 5px;"}
+                      .group-input
+                        .product-details
+                          .pd-size-choose
+                            .sc-item
+                              .row
+                                .col-6
+                                  %input#male{name: "user[gender]", type: "radio", value: "male", checked: true}
+                                  %label{style: "width: 54px;", for: "male"} Male
+                                .col-6
+                                  %input#female{name: "user[gender]", type: "radio", value: "female"}
+                                    %label{style: "width: 92px;", for: "female"} Female
+                    - if @user.errors.any?
+                      %p
+                        = @user.errors.messages[:gender].join(', ')
+                .col-6
+                  .field
+                    = f.label :email
+                    %br/
+                    = f.email_field :email, autocomplete: "email", class: 'form-control', required: true
+                    - if @user.errors.any?
+                      %p
+                        = @user.errors.messages[:email].join(', ')
+                  .field
+                    = f.label :password
+                    - if @minimum_password_length
+                      %em
+                        (#{@minimum_password_length} characters minimum)
+                    %br/
+                    = f.password_field :password, autocomplete: "new-password", class: 'form-control', required: true
+                    - if @user.errors.any?
+                      %p
+                        = @user.errors.messages[:password].join(', ')
+                  .field{style: "margin-top: 22px;"}
+                    = f.label :password_confirmation
+                    %br/
+                    = f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', required: true
+                    - if @user.errors.any?
+                      %p
+                        = @user.errors.messages[:password_confirmation].join(', ')
+                    %br/
+              .actions
+                = f.submit "Sign up", class: 'site-btn'
+            = render "users/shared/links"

@@ -1,0 +1,99 @@
+/ Page info
+.page-top-info
+  .container
+    %h4 Your cart
+    .site-pagination
+      %a{href: "#{root_path}"} Home
+      \/
+      %a{href: "#{carts_path}"} Your cart
+/ Page info end
+/ checkout section
+%section.checkout-section.spad
+  .container
+    .row
+      .col-lg-8.order-2.order-lg-1
+        .checkout-form
+          .cf-title Billing Address
+          %p{style: "color: red;"} * For change address click on.
+          .row.address-inputs
+            .col-md-12
+              %label Address
+              %h4= best_in_place current_user, :address
+              %br
+            .col-md-6
+              %label Location
+              %h4= best_in_place current_user, :location
+              %br
+            .col-md-6
+              %label City
+              %h4= best_in_place current_user, :city
+              %br
+            .col-md-6
+              %label Country
+              %h4= best_in_place current_user, :country
+              %br
+            .col-md-6
+              %label Pincode
+              %h4= best_in_place current_user, :pincode
+              %br
+          .cf-title Payment
+          %ul.payment-list
+            = form_with(url: orders_path, model: @order, local: true) do |form|
+              .field
+                = form.hidden_field :user_id, value: current_user.id
+              .field
+                .row
+                  .col-3
+                    %label Payment Id:
+                  .col-6
+                    = form.number_field :payment_id, required: true
+                    - if @order.errors.any?
+                      %p
+                        = @order.errors.messages[:payment_id].join(', ')
+                %br
+              .field
+                .row
+                  .col-3
+                    = form.label :payment_mode
+                  .col-6
+                    = form.select :payment_mode, ['Cash', 'Cheque', 'Net-Banking'], {include_blank: "Select something"}, class: 'form-control', required: true
+                    - if @order.errors.any?
+                      %p
+                        = @order.errors.messages[:payment_mode].join(', ')
+                %br
+              .field
+                .row
+                  .col-3
+                    = form.label :status
+                  .col-6
+                    = form.select :status, ['Confirm By User'], {include_blank: "Select something"}, class: 'form-control', required: true
+                    - if @order.errors.any?
+                      %p
+                        = @order.errors.messages[:status].join(', ')
+              .field
+                = form.hidden_field :date, value: Time.now
+              .field
+                = form.hidden_field :subtotal, value: @carts.sum(:total)
+              .field
+                = form.hidden_field :discount, value: 0
+              .field
+                = form.hidden_field :discount_type, value: "%"
+              .field
+                = form.hidden_field :total, value: @carts.sum(:total)
+              .actions
+                = form.submit 'PLACE ORDER', class: 'site-btn submit-order-btn'
+      .col-lg-4.order-1.order-lg-2
+        .checkout-cart
+          %h3 Your Cart
+          %ul.product-list
+            - @carts.each do |cart|
+              %li
+                .pl-thumb
+                  = image_tag cart.product.image
+                %h6= cart.product.name
+                %p= cart.total
+          %ul.price-list
+            %li.total
+              Total
+              %span= @carts.sum(:total)
+/ checkout section end

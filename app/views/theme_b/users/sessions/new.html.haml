@@ -1,0 +1,60 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text
+          %a{href: "#"}
+            %i.fa.fa-home
+            = link_to "Home", root_path
+          %span
+            = link_to "Login", new_user_session_path
+/ Breadcrumb Form Section Begin
+/ Register Section Begin
+.register-login-section.spad
+  .container
+    .row
+      .col-lg-6.offset-lg-3
+        .login-form
+          %h2 Login In
+          = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+            .group-input
+              = f.label :email
+              = f.email_field :email, autofocus: true, autocomplete: "email", required: true
+            .group-input
+              = f.label :password
+              = f.password_field :password, autocomplete: "current-password", required: true
+            - if devise_mapping.rememberable?
+              .field
+                = f.check_box :remember_me
+                = f.label :remember_me
+            %button.site-btn.login-btn{type: "submit"} Login In
+            .switch-login
+              = render "devise/shared/links"
+              -# %button.site-btn.login-btn
+          -#   %a.or-login{href: "#{new_user_registration_path}"} Or Create An Account
+
+/ Register Form Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

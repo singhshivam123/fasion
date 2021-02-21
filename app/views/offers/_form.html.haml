@@ -1,0 +1,16 @@
+= form_for @offer do |f|
+  - if @offer.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@offer.errors.count, "error")} prohibited this offer from being saved:"
+      %ul
+        - @offer.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.fields_for :offer_locations do |ol|
+      = ol.label :location_id
+      = ol.number_field :location_id
+  .actions
+    = f.submit 'Save'

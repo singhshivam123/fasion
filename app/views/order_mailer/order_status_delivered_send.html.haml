@@ -1,0 +1,128 @@
+.row
+  .col-lg-12.card-right{style: "text-align: center;"}
+    -# = image_tag 'theme_b/check1.gif'
+    %h3.title_confirmation Welcome "#{@company.name}" !
+%section.checkout-section.spad
+  .container
+    .row
+      .col-lg-12.card-right{style: "text-align: center;"}
+        -# = image_tag 'theme_b/check1.gif'
+        %h3.title_confirmation Thank you. Your order has been received.
+        %br
+    %form.checkout-form{action: "#"}
+      .row
+        .col-lg-6
+          %h4 User Details
+          .row
+            .col-lg-6
+              %label{for: "fir"}
+                First Name
+                %span *
+              %input#fir{type: "text", value: "#{@order.user.first_name}"}/
+            .col-lg-6
+              %label{for: "last"}
+                Last Name
+                %span *
+              %input#last{type: "text", value: "#{@order.user.last_name}"}/
+            .col-lg-6
+              %label{for: "cun"}
+                Country
+                %span *
+              %input#cun{type: "text", value: "#{@order.user.country}"}/
+            .col-lg-6
+              %label{for: "town"}
+                Town / City
+                %span *
+              %input#town{type: "text", value: "#{@order.user.city}"}/
+            .col-lg-12
+              %label{for: "street"}
+                Street Address
+                %span *
+              %input#street.street-first{type: "text", value: "#{@order.user.address}"}/
+            .col-lg-6
+              %label{for: "zip"} Postcode / ZIP (optional)
+              %input#zip{type: "text", value: "#{@order.user.pincode}"}/
+            .col-lg-6
+              %label{for: "phone"}
+                Phone
+                %span *
+              %input#phone{type: "text",value: "#{@order.user.mobile}"}/
+          %h4 Billing Details
+          .row
+            .col-lg-6
+              %label{for: "cun"}
+                Country
+                %span *
+              %input#cun{type: "text", value: "#{@order.user.country}"}/
+            .col-lg-6
+              %label{for: "town"}
+                Town / City
+                %span *
+              %input#town{type: "text", value: "#{@order.user.city}"}/
+            .col-lg-12
+              %label{for: "street"}
+                Street Address
+                %span *
+              %input#street.street-first{type: "text", value: "#{@order.user.address}"}/
+            .col-lg-6
+              %label{for: "zip"} Postcode / ZIP (optional)
+              %input#zip{type: "text", value: "#{@order.user.pincode}"}/
+            .col-lg-6
+              %label{for: "phone"}
+                Phone
+                %span *
+              %input#phone{type: "text", value: "#{@order.user.mobile}"}/
+          %h4 Order Details
+          .row
+            .col-lg-6
+              %label{for: "cun"}
+                Payment Id
+                %span *
+              %input#cun{type: "text", value: "#{@order.payment_id}"}/
+            .col-lg-6
+              %label{for: "town"}
+                Payment Mode
+                %span *
+              %input#town{type: "text", value: "#{@order.payment_mode}"}/
+            .col-lg-12
+              %label{for: "street"}
+                Order Date
+                %span *
+              %input#street.street-first{type: "text", value: "#{@order.date}"}/
+            .col-lg-6
+              %label{for: "zip"} Subtotal
+              %input#zip{type: "text", value: "#{@order.subtotal}"}/
+            .col-lg-6
+              %label{for: "phone"}
+                Discount
+                %span *
+              %input#phone{type: "text", value: "#{@order.discount}"}/
+            .col-lg-6
+              %label{for: "phone"}
+                Discount Type
+                %span *
+              %input#phone{type: "text", value: "#{@order.discount_type}"}/
+            .col-lg-6
+              %label{for: "phone"}
+                Total
+                %span *
+              %input#phone{type: "text", value: "#{@order.total}"}/
+        .col-lg-6
+          .place-order
+            %h4 All Product
+            .order-total
+              %ul.order-table
+                %li
+                  Product
+                  %span Total
+                %li.fw-normal
+                - @order_product.each do |order_product|
+                  %li
+                    = order_product.product.name
+                    %span= order_product.product.price
+                %li.fw-normal
+                  Subtotal
+                  %span= @order_product.sum(:price)
+                %li.total-price
+                  Total
+                  %span= @order_product.sum(:price)

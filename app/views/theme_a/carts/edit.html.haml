@@ -1,0 +1,63 @@
+%section.contact-section
+  .container
+    .row
+      .col-lg-6.contact-info
+        %h3 Editing Cart
+        .cart-table
+          .cart-table-warp
+            %table{class: "form-group"}
+              %thead
+                %tr
+                  %th.product-th Product
+              %tbody
+                %tr
+                  %td.product-col
+                    = image_tag @cart.product.image
+                    .pc-title
+                      %h4=  " Per #{@cart.product.name}"
+                      %p= @cart.product.mrp
+      .col-lg-6{style: "padding-top: 94px;"}
+        = form_with(url: cart_path, model: @cart, local: true, class: "contact-form") do |form|
+          .row
+            .col-6
+              .field
+                = form.hidden_field :user_id
+              .field
+                = form.hidden_field :product_id
+              .field
+                .fw-color-choose{style: "border: none; margin-bottom: 26px; padding: 0;"}
+                  %p{style: "float: left; margin-right: 30px; font-weight: 700;"} Color
+                  - @cart.product.product_color.each do |product_color|
+                    .cs-item
+                      =  form.radio_button :product_color_id, product_color.id, checked: (product_color.id == @cart.product.product_color.first.id)
+                      %label{style: "background-color: #{product_color.color.value}", for: "cart_product_color_id_#{product_color.id}"}
+                      - if @cart.errors.any?
+                        %p
+                          = @cart.errors.messages[:product_color_id].join(', ')
+              .field
+                = form.label :quantity
+                = form.number_field :quantity, required: true
+                - if @cart.errors.any?
+                  %p
+                    = @cart.errors.messages[:quantity].join(', ')
+            .col-6
+              .field
+                .fw-size-choose{style: "border: none; margin-bottom: 26px; padding: 0;"}
+                  %p{style: "float: left; margin-right: 30px; font-weight: 700;"} Size
+                  - @cart.product.product_size.each do |product_size|
+                    .sc-item
+                      =  form.radio_button :product_size_id, product_size.id, checked: (product_size.id == @cart.product.product_size.first.id)
+                      %label{style: "width: 52px; border: 2px solid #414141", for: "cart_product_size_id_#{product_size.id}"}= product_size.size.name
+                      - if @cart.errors.any?
+                        %p
+                          = @cart.errors.messages[:product_size_id].join(', ')
+              .field
+              .field
+                = form.label :total
+                = form.text_field :total, required: true
+                - if @cart.errors.any?
+                  %p
+                    = @cart.errors.messages[:total].join(', ')
+            .actions
+              %button.site-btn{style: "margin-bottom: 45px;", type: 'submit'} Update
+              %a.site-btn{style: "margin-bottom: 45px; color: white;", href: "#{carts_path}"} Back

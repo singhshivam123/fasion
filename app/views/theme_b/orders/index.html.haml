@@ -1,0 +1,75 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text
+          %a{href: "#"}
+            %i.fa.fa-home
+            = link_to "Home", root_path
+          %span
+            = link_to "Order"
+%section.shopping-cart.spad
+  .container
+    .row
+      .col-lg-12
+        .cart-table
+          %table
+            %thead
+              %tr
+                %th User
+                %th payment
+                %th mode
+                %th Date
+                %th Total
+                %th status
+                %th{colspan: "2"} Action
+            %tbody
+            - @orders.each do |order|
+              %tr
+                %td.cart-pic.first-row
+                  = current_user.email
+                %td.cart-title.first-row
+                  = order.payment_id
+                %td.cart-title.first-row
+                  = order.payment_mode
+                %td.p-price.first-row= order.date.strftime("%d-%m-%y %H:%M")
+                %td.total-price.first-row= order.total
+                %td.total-price.first-row= order.status
+                %td.close-td.first-row
+                  = link_to '', order_path(order), class: "fa fa-eye", style: "background: transparent; color: black;"
+                %td.close-td.first-row
+                  = link_to '✖', order_path(order), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn",style: "background: transparent; color: black;"
+    .row
+      .col-lg-12
+        .loading-more
+          %i.fa
+            %a{href: "#"}
+              = paginate @orders
+        %br
+/ Breadcrumb Form Section Begin
+/ Register Section Begin
+/ Register Form Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

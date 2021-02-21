@@ -1,0 +1,83 @@
+%header.header-section
+  .header-top
+    .container
+      .ht-left
+        .mail-service
+          %i.fa.fa-envelope
+          = @company.email
+        .phone-service
+          %i.fa.fa-phone
+          = @company.mobile
+      .ht-right
+        - if current_user
+          %a.login-panel{href: " "}
+            %i.fa.fa-user>
+              = current_user.first_name
+              = current_user.last_name
+        - else
+          %a.login-panel{style: "border-left: none;", href: "#{new_user_registration_path}"}
+            Sign Up
+          %a.login-panel{href: "#{new_user_session_path}"}
+            %i.fa.fa-user>
+            Sign In
+        .top-social
+          - @profile.each do |profile|
+            %a.fa{class:"fa-#{profile.provider}", href:"#{profile.url}", target: '_blank'}
+  .container
+    .inner-header
+      .row
+        .col-lg-2.col-md-2
+          .logo
+            %a{href: "#{root_path}"}
+              = image_tag "theme_b/logo.png"
+        .col-lg-7.col-md-7
+          = form_tag products_path, method: :get do
+            .advanced-search
+              .row
+                -# .col-4
+                -#   .input-group
+                -#     = select_tag :category_id, options_for_select([['All', '']] + Category.pluck(:name, :id), selected: params[:category_id]), class: "form-control", style: "height: 48px;"
+                .col-10
+                  .input-group
+                    = text_field_tag :name ,params[:name], placeholder: "Search product", style: "padding-top: 13px; padding-left: 65px;"
+                .col-2
+                  .input-group
+                    %button{type: "submit"}
+                      %i.fa.fa-search
+        .col-lg-3.text-right.col-md-3
+          %ul.nav-right
+            %li.cart-icon
+              %a{href: "#{carts_path}"}
+                %i.fa.fa-shopping-bag
+                - if @no_of_cart.blank?
+                  %span= 0
+                - else
+                  %span= @no_of_cart
+  .nav-item
+    .container
+      %nav.nav-menu.mobile-menu
+        %ul
+          %li{class: "#{current_class?(root_path)}"}
+            = link_to "home", root_path
+          %li{class: "#{current_class?(products_path)}"}
+            = link_to "shop", products_path
+          %li{class: "#{current_class?(contact_path)}"}
+            = link_to "Contact", contact_path
+          %li{class: ""}
+            = link_to "Acount"
+            %ul.dropdown
+              - if defined?(Devise)
+                - if user_signed_in?
+                  %li{class: "#{current_class?(edit_user_registration_path)}"}
+                    = link_to "Edit Profile", edit_user_registration_path
+                  %li{class: "#{current_class?(destroy_user_session_path)}"}
+                    = link_to "Logout", destroy_user_session_path, method: :delete
+                  %li{class: "#{current_class?(orders_path)}"}
+                    = link_to "All Orders", orders_path
+                - else
+                  %li{class: "#{current_class?(new_user_session_path)}"}
+                    = link_to "Sign In", new_user_session_path
+                  %li{class: "#{current_class?(new_user_registration_path)}"}
+                    = link_to "Sign up", new_user_registration_path
+      #mobile-menu-wrap
+/ Header End

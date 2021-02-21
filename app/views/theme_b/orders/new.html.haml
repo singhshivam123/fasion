@@ -1,0 +1,87 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text
+          %a{href: "#"}
+            %i.fa.fa-home
+            = link_to "Home", root_path
+          %span
+            = link_to "Order"
+/ Breadcrumb Form Section Begin
+/ Register Section Begin
+.register-login-section.spad
+  .container
+    .row
+      .col-lg-6.offset-lg-3
+        .login-form
+          %h2 Orders
+          = form_with(url: orders_path, model: @order, local: true) do |form|
+            .group-input
+              = form.hidden_field :user_id, value: current_user.id
+            .group-input
+              .row
+                .col-3
+                  %label Payment Id:
+                .col-6
+                  = form.number_field :payment_id, required: true
+                  - if @order.errors.any?
+                    %p
+                      = @order.errors.messages[:payment_id].join(', ')
+              %br
+            .group-input
+              .row
+                .col-3
+                  = form.label :payment_mode
+                .col-6
+                  = form.select :payment_mode, ['Cash', 'Cheque', 'Net-Banking'], {include_blank: "Select something"}, class: 'form-control', required: true
+                  - if @order.errors.any?
+                    %p
+                      = @order.errors.messages[:payment_mode].join(', ')
+              %br
+            .group-input
+              .row
+                .col-3
+                  = form.label :status
+                .col-6
+                  = form.select :status, ['Confirm By User'], {include_blank: "Select something"}, class: 'form-control', required: true
+                  - if @order.errors.any?
+                    %p
+                      = @order.errors.messages[:status].join(', ')
+            .group-input
+              = form.hidden_field :date, value: Time.now
+            .group-input
+              = form.hidden_field :subtotal, value: @carts.sum(:total)
+            .group-input
+              = form.hidden_field :discount, value: 0
+            .group-input
+              = form.hidden_field :discount_type, value: "%"
+            .group-input
+              = form.hidden_field :total, value: @carts.sum(:total)
+            .group-input.gi-check
+              %button.site-btn.login-btn{type: "submit"} Submit
+/ Register Form Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

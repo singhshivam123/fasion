@@ -1,0 +1,95 @@
+
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text
+          %a{href: "#{root_path}"}
+            %i.fa.fa-home
+            Home
+          %span Contact
+/ Breadcrumb Section Begin
+/ Map Section Begin
+.map.spad
+  .container
+    .map-inner
+      %iframe{frameborder: "0", height: "610", marginheight: "0", marginwidth: "0", scrolling: "no", src: "https://maps.google.com/maps?width=100%&height=600&hl=en&coord=21.1489722, 72.7961212&q=1%20Fashion Hub %2C%20Style Elegance%2C%20&ie=UTF8&t=&z=14&iwloc=B&output=embed", width: "100%"}
+/ Map Section Begin
+/ Contact Section Begin
+%section.contact-section.spad
+  .container
+    .row
+      .col-lg-5
+        .contact-title
+          %h4 Contacts Us
+          %p
+            Contrary to popular belief, Lorem Ipsum is simply random text. It has roots in a piece of
+            classical Latin literature from 45 BC, maki years old.
+        .contact-widget
+          .cw-item
+            .ci-icon
+              %i.fa.fa-map-marker
+            .ci-text
+              %span Address:
+              %p
+              = @company.address
+          .cw-item
+            .ci-icon
+              %i.fa.fa-mobile
+            .ci-text
+              %span Phone:
+              %p
+              = @company.mobile
+          .cw-item
+            .ci-icon
+              %i.fa.fa-envelope-o
+            .ci-text
+              %span Email:
+              %p
+              = @company.email
+      .col-lg-6.offset-lg-1
+        .contact-form
+          .leave-comment
+            %h4 Leave A Comment
+            %p Our staff will call back later and answer your questions.
+            = form_with(url: home_index_path, model: @contact, local: true, class: "comment-form") do |f|
+              - if @contact.errors.any?
+                %p
+                  = @contact.errors.messages[:name].join(', ')
+                  = @contact.errors.messages[:email].join(', ')
+                  = @contact.errors.messages[:message].join(', ')
+              .row
+                .col-lg-6
+                  = f.text_field :name, placeholder: "Your Name" ,class: "form-control", required: true
+                .col-lg-6
+                  = f.text_field :email, placeholder: "Your email", class: "form-control", required: true
+                .col-lg-12
+                  = f.text_field :subject, placeholder: "Your Subject", class: "form-control", required: true
+                .col-lg-12
+                  = f.text_area :message, placeholder: "Your Message", rows: "6", class: "form-control", cols: "30", required: true
+                  %button.site-btn{type: "submit"} Send message
+/ Contact Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

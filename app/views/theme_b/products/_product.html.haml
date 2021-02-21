@@ -1,0 +1,56 @@
+.product-list
+  .row
+    - @products.each do |product|
+      .col-lg-4.col-sm-6
+        .product-item
+          .pi-pic
+            %a{href: "#{product_path(product.slug)}"}
+              = image_tag product.image, style: "height: 300px; width: 295px;"
+            %div
+              - if product.available == "yes"
+                %p
+              - else product.available == "no"
+                .sale.pp-sale{style: "margin-bottom: 3px; margin-left: 10px;"} Out of Stock
+            %div
+              - unless user_signed_in? && Cart.where(user_id: current_user.id).pluck(:product_id).include?(product.id)
+                %p
+              - else
+                .sale.pp-sale{style:"width: 96px;  line-height: 2; background-color: #828bb3; margin-bottom: 3px; margin-left: 10px;"} Go to cart
+            %ul
+              %li.quick-view
+                %a{href: "#{product_path(product.slug)}"} + Quick View
+          .pi-text
+            .catagory-name= product.brand.name
+            %a{href: "#"}
+              %h5= product.name
+            .product-price
+              = "$#{product.price}.00"
+              %span $35.00
+.loading-more
+  %i.fa
+    %a{href: "#"}
+      = paginate @products
+  %h2= "No Product" if @products.blank?
+  %br
+-#
+-# - if params[:pincode].blank?
+-#   %span
+-# - elsif @pincode.nil?
+-#   %span= "Invalid pincode"
+-# - else
+-#   %span= "Valid pincode"
+
+-# = form_tag products_path, method: :get do
+-#   .advanced-search
+-#     .row
+-#       .col-4
+-#         .input-group
+-#           -# = select_tag :category_id, options_for_select([['All', '']] + Category.pluck(:name, :id), selected: params[:category_id]), class: "form-control", style: "height: 48px;"
+-#           = hidden_field_tag :category_id, params[:category_id]
+-#       .col-10
+-#         .input-group
+-#           -# = text_field_tag :name ,params[:name], placeholder: "Search product", style: "padding-top: 13px; padding-left: 65px;"
+-#           = hidden_field_tag :brand_id, params[:brand_id]
+-#       .col-2
+-#         .input-group
+-#           %button{type: "submit", remote: true}Find

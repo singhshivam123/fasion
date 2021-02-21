@@ -1,0 +1,4 @@
+document.getElementById('#{dom_id(@cart, 'inline_form')}').remove()
+document.getElementById('#{dom_id(@cart)}').innerHTML = "#{j render @cart}"
+document.getElementById('#{dom_id(@cart)}').style.display = 'table-row'
+$('.proceed-checkout').html("#{j render(partial: 'cart_total')}");

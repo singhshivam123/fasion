@@ -1,0 +1,161 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text.product-more
+          %a{href: "#{root_path}"}
+            %i.fa.fa-home
+            Home
+          %a{href: "#{products_path}"} Shop
+          %span Shopping Cart
+/ Breadcrumb Section Begin
+/ Shopping Cart Section Begin
+%section.shopping-cart.spad
+  .container
+    .row
+      .col-lg-12
+        -# .cart-table
+        -#   %table
+        -#     %thead
+        -#       %tr
+        -#         %th Image
+        -#         %th.p-name Product Name
+        -#         %th Price
+        -#         %th Color
+        -#         %th Size
+        -#         %th Quantity
+        -#         %th Total
+        -#         %th{colspan: "2"} Action
+        -#     %tbody
+        -#     - @carts.each do |cart|
+        -#       %tr
+        -#         %td.cart-pic.first-row
+        -#           = image_tag cart.product.image, class: "img-fluid", style: "height: 150px; width: 152px;"
+        -#         %td.cart-title.first-row
+        -#           %h5= cart.product.name
+        -#         %td.p-price.first-row= cart.product.mrp
+        -#         %td.p-price.first-row
+        -#           .fw-color-choose{style: "border: none; margin-bottom: -11px; padding: 0;"}
+        -#             .cs-item
+        -#               %label{style: "background-color: #{cart.product_color.color.value};"}
+        -#         %td.p-price.first-row= cart.product_size.size.name
+        -#         %td.qua-col.first-row
+        -#           %h5= cart.quantity
+        -#         %td.total-price.first-row= cart.total
+        -#         %td.close-td.first-row
+        -#           = link_to '', edit_cart_path(cart), class:"fa fa-pencil", style: "background: transparent; color: black;", method: :get, remote: true
+        -#         %td.close-td.first-row
+        -#           = button_to "✖", cart_path(cart), method: :delete, class: "btn"
+
+        .divTable.paleBlueRows
+          .divTableHeading
+            .divTableRow
+              .divTableHead Image
+              .divTableHead Product Name
+              .divTableHead Price
+              .divTableHead Color
+              .divTableHead Size
+              .divTableHead Quantity
+              .divTableHead Total
+              .divTableHead Action
+          .divTableBody
+            - @carts.each do |cart|
+              = content_tag :div, class: 'divTableRow', id: dom_id(cart) do
+                .divTableCell= image_tag cart.product.image, style: "height: 150px; width: 152px;"
+                .divTableCell= cart.product.name
+                .divTableCell= cart.product.mrp
+                .divTableCell
+                  .fw-color-choose{style: "border: none; margin-bottom: -11px; padding: 0;"}
+                    .cs-item
+                      %label{style: "background-color: #{cart.product_color.color.value};"}
+                .divTableCell= cart.product_size.size.name
+                .divTableCell= cart.quantity
+                .divTableCell{id: "total#{cart.id}"}= cart.total
+                .divTableCell
+                  = link_to '', edit_cart_path(cart), remote: true, class: 'fa fa-pencil'
+                  = link_to '✖', cart, method: :delete, data: { confirm: 'Are you sure?' }
+
+
+    .row
+      .col-lg-4.offset-lg-4
+        .proceed-checkout{style: "padding-top: 18px;"}
+          %ul
+            %li.cart-total
+              Total
+              %span#finaltotal= "#{current_user.carts.pluck(:total).sum}"
+          - if @carts.count == 0
+            %a.proceed-btn{href: "#{products_path}"} Continue shopping
+          - else
+            %a.proceed-btn{href: "#{checkouts_path}"} PROCEED TO CHECK OUT
+    .row
+      .col-lg-12
+        .loading-more
+          %i.fa
+            %a{href: "#"}
+              = paginate @carts
+        %br
+
+-# %table.head-table
+-#   %tr
+-#     %th{align: "right"} Class:
+-#     %td 10
+-#     %th{align: "right"} Div:
+-#     %td A
+-#   %tr
+-#     %th{align: "right"} Teacher:
+-#     %td Mr. krunal
+-#     %th{align: "right"} Exam:
+-#     %td Moke Test
+-# %center
+-#   %button{onclick: "add_row()", style: "margin:5px"} Add Row
+-# %table#resulTable.result-table
+-#   %tr
+-#     %th{align: "center"} Roll No.
+-#     %th{align: "center"} Name
+-#     %th{align: "center"} English
+-#     %th{align: "center"} Hindi
+-#     %th{align: "center"} Math
+-#     %th{align: "center"} Total
+-#     %th{align: "center"} Persentage
+-# %h1{align: "center"} Exam Summary
+-# %table.summary-table
+-#   %tr
+-#     %th No. of Student
+-#     %td#noOfStudent
+-#   %tr
+-#     %th Highest
+-#     %td#highest
+-#   %tr
+-#     %th lowest
+-#     %td#lowest
+-#   %tr
+-#     %th Avarege
+-#     %td#average
+-#   %tr
+-#     %th Final total
+-#     %td#finaltotal
+/ Shopping Cart Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

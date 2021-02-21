@@ -1,0 +1,6 @@
+- if params[:pincode].blank?
+  %span
+- elsif @pincode.nil?
+  %span= "Invalid pincode"
+- else
+  %span= "Valid pincode"

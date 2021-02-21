@@ -1,0 +1,56 @@
+%section.cart-section.spad{style: "padding-top: 60px;"}
+  .container
+    .row
+      .col-lg-6.card-right
+        %h2.p-title= "#{current_user.first_name} #{current_user.last_name}"
+        %br
+        .checkout-form
+          .cf-title Address Details
+          .row.address-inputs
+            .col-md-12
+              %div
+                %strong Address :-
+                = current_user.address
+              %br
+            .col-md-6
+              %div
+                %strong Location :-
+                = current_user.location
+              %br
+            .col-md-6
+              %div
+                %strong City :-
+                = current_user.city
+              %br
+            .col-md-6
+              %div
+                %strong Country :-
+                = current_user.country
+              %br
+            .col-md-6
+              %div
+                %strong Pincode :-
+                = current_user.pincode
+      .col-lg-6.card-right{style: "margin-top: 66px;"}
+        .checkout-form
+          .cf-title Contact Details
+          .row.address-inputs
+            .col-md-12
+              %div
+                %strong Email :-
+                = current_user.email
+              %br
+            .col-md-6
+              %div
+                %strong Contact :-
+                = current_user.mobile
+              %br
+            .col-md-6
+              %div
+                %strong Gender :-
+                = current_user.gender
+              %br
+            .col-md-6
+              %div
+                %strong Create :-
+                = current_user.created_at

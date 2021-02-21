@@ -1,0 +1,13 @@
+.divTableCell= image_tag cart.product.image, style: "height: 150px; width: 152px;"
+.divTableCell= cart.product.name
+.divTableCell= cart.product.mrp
+.divTableCell
+  .fw-color-choose{style: "border: none; margin-bottom: -11px; padding: 0;"}
+    .cs-item
+      %label{style: "background-color: #{cart.product_color.color.value};"}
+.divTableCell= cart.product_size.size.name
+.divTableCell= cart.quantity
+.divTableCell{id: "total#{cart.id}"}= cart.total
+.divTableCell
+  = link_to '', edit_cart_path(cart), remote: true, class: 'fa fa-pencil'
+  = link_to '✖', cart, method: :delete, data: { confirm: 'Are you sure?' }

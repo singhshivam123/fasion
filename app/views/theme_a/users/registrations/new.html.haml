@@ -1,0 +1,68 @@
+.contact-section
+  .container
+    .row.justify-content-center
+      .col-lg-12
+        .text-center
+          %h2 Sign up
+          = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+            .row
+              .col-6
+                .field
+                  = f.label :first_name
+                  %br/
+                  = f.text_field :first_name, autofocus: true, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:first_name].join(', ')
+                .field
+                  = f.label :last_name
+                  %br/
+                  = f.text_field :last_name, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:last_name].join(', ')
+                .field
+                  %br/
+                  %section.product-section{style: "padding: 0px;"}
+                    .row
+                      .col-6
+                        = f.label :gender
+                      .col-6.product-details
+                        .fw-size-choose
+                          .sc-item
+                            %input#male{name: "user[gender]", type: "radio", value: "male", checked: true}
+                              %label{style: "width: 54px;", for: "male"} Male
+                          .sc-item
+                            %input#female{name: "user[gender]", type: "radio", value: "female"}
+                              %label{style: "width: 54px;", for: "female"} Female
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:gender].join(', ')
+              .col-6
+                .field
+                  = f.label :email
+                = f.email_field :email, autocomplete: "email", class: 'form-control', required: true
+                - if @user.errors.any?
+                  %p
+                    = @user.errors.messages[:email].join(', ')
+                .field
+                  = f.label :password
+                  - if @minimum_password_length
+                    %em
+                      (#{@minimum_password_length} characters minimum)
+                  %br/
+                  = f.password_field :password, autocomplete: "new-password", class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:password].join(', ')
+                .field
+                  = f.label :password_confirmation
+                  %br/
+                  = f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:password_confirmation].join(', ')
+                  %br/
+            .actions
+              = f.submit "Sign up", class: 'site-btn'
+          = render "users/shared/links"

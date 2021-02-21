@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  payment_id: 1
+  payment_mode: MyString
+  date: 2020-06-30 17:59:23
+  subtotal: 9.99
+  discount: 9.99
+  discount_type: MyString
+  total: 9.99
+
+two:
+  user: two
+  payment_id: 1
+  payment_mode: MyString
+  date: 2020-06-30 17:59:23
+  subtotal: 9.99
+  discount: 9.99
+  discount_type: MyString
+  total: 9.99

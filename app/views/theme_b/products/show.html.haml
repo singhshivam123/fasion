@@ -1,0 +1,131 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text.product-more
+          %a{href: "#{root_path}"}
+            %i.fa.fa-home
+            Home
+          %a{href: "#{products_path}"} Product
+          %span Detail
+/ Breadcrumb Section Begin
+/ Product Shop Section Begin
+%section.product-shop.spad.page-details
+  .container
+    .row
+      .col-lg-9
+        .row
+          .col-lg-6
+            .product-pic-zoom
+              = image_tag @product.image
+              .zoom-icon
+                %i.fa.fa-search-plus
+          .col-lg-6
+            .product-details
+              .pd-title
+                %h3= @product.name
+                %h3{style: "font-size: 25px;"}
+                - if @product.available == "yes"
+                  %span In Stock
+                - else
+                  %span Out of Stock
+                %a.heart-icon{href: "#"}
+                  %i.fa.fa-heart-o
+              .pd-rating
+                %i.fa.fa-star
+                %i.fa.fa-star
+                %i.fa.fa-star
+                %i.fa.fa-star
+                %i.fa.fa-star-o
+                %span (5)
+              .pd-desc
+                %p= @product.description
+                %h4
+                  = @product.price
+                  %span 629.99
+              = form_with(url: carts_path, model: @cart ,local: true) do |f|
+                - if @cart.errors.any?
+                  #error_explanation
+                    %h2
+                      = pluralize(@cart.errors.count, "error")
+                      prohibited this cart from being saved:
+                    %ul
+                      - @cart.errors.full_messages.each do |message|
+                        %li= message
+                .field
+                  = f.hidden_field :user_id, value: current_user.id if user_signed_in?
+                .field
+                  = f.hidden_field :product_id, value: @product.id
+                .field
+                  .div{style: "margin-bottom: 16px;"}
+                    .fw-color-choose{style: "border: none; margin-bottom: 26px; padding: 0;"}
+                      %p{style: "float: left;"}
+                      - @product.product_color.each do |product_color|
+                        .cs-item
+                          =  f.radio_button :product_color_id, product_color.id, required: true, checked: (product_color.id == @product.product_color.first.id)
+                          %label{style: "background-color: #{product_color.color.value}", for: "cart_product_color_id_#{product_color.id}"}
+                .field
+                  .pd-size-choose
+                    - @product.product_size.each do |product_size|
+                      .sc-item
+                        = f.radio_button :product_size_id, product_size.id, required: true, checked: (product_size.id == @product.product_size.first.id)
+                        %label{class: "#{product_size.size.name}-size", for: "cart_product_size_id_#{product_size.id}", style: "width: 85px;"}= product_size.size.name
+                .field
+                  .quantity
+                    .pro-qty
+                      = f.number_field :quantity, value: 1
+                .field
+                  = f.hidden_field :total, value: @product.price
+                .actions
+                  - unless user_signed_in? && Cart.where(user_id: current_user.id).pluck(:product_id).include?(@product.id)
+                    - if @product.available == 'yes'
+                      = f.submit 'Add to cart', class: "primary-btn"
+                    - elsif @product.available == 'no'
+                      %p{onclick: "out_of_stock()", class: 'primary-btn', style: " left: 30px; color:white;"} Out of stock
+                  - else
+                    %a{href: "#{carts_path}", class: 'primary-btn'}Vist Cart
+                    %a{href: "#{products_path}", class: 'primary-btn'}Conting Shoping
+            %br/
+            .product-details
+              .pd-desc{margin: 0}
+                %p Check Delivery
+            .inner-header{style: "padding: 0px;"}
+              = form_with(url: product_path, method: 'get') do |f|
+                .advanced-search{style: "height: 52px;"}
+                  .row
+                    .col-10
+                      .input-group
+                        = f.number_field :pincode, value: params[:pincode], placeholder: "Type Pincode", style: "color: black; height: 48px; padding-top: 4px; text-align: center; width: 100%"
+                    .col-2
+                      .input-group
+                        %button{type: 'submit', name: 'commit'}Check
+              %br
+            #pin
+            .product-details
+              %ul.pd-tags
+                %li
+                  %span> CATEGORIES
+                  \: More Accessories, Wallets &amp; Cases
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

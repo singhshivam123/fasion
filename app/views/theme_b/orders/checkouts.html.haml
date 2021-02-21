@@ -1,0 +1,108 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text.product-more
+          %a{href: "#{root_path}"}
+            %i.fa.fa-home
+            Home
+          %a{href: "#{products_path}"} Shop
+          %span Check Out
+/ Breadcrumb Section Begin
+/ Shopping Cart Section Begin
+%section.checkout-section.spad
+  .container
+    %form.checkout-form{action: "#"}
+      .row
+        .col-lg-6
+          %h4 Biiling Details
+          .row
+            .col-lg-6
+              %label{for: "fir"}
+                First Name
+                %span *
+              %input#fir{value: "#{current_user.first_name}",required: true}/
+            .col-lg-6
+              %label{for: "last"}
+                Last Name
+                %span *
+              %input#last{value: "#{current_user.last_name}", required: true}/
+            .col-lg-12
+              %label{for: "cun"}
+                Country
+                %span *
+              %input#cun{value: "#{current_user.country}", required: true}/
+            .col-lg-12
+              %label{for: "street"}
+                Street Address
+                %span *
+              %p
+              = best_in_place current_user, :address, required: true
+              %input{type: "text"}/
+            .col-lg-6
+              %label{for: "zip"} Postcode / ZIP (optional)
+              %input#zip{value: "#{current_user.pincode}", required: true}/
+            .col-lg-6
+              %label{for: "town"}
+                Town / City
+                %span *
+              %input#town{value: "#{current_user.city}", required: true}/
+            .col-lg-6
+              %label{for: "email"}
+                Email Address
+                %span *
+              %input#email{value: "#{current_user.email}", required: true}/
+            .col-lg-6
+              %label{for: "phone"}
+                Phone
+                %span *
+              %input#phone{value: "#{current_user.mobile}", required: true}/
+            %a Edit details or address to ( update your information )
+            %a{href: edit_user_path(current_user)}click here
+        .col-lg-6
+          .place-order
+            %h4 Your Cart
+            .order-total
+              %ul.order-table
+                %li
+                  Product
+                  %span Total
+                %li.fw-normal
+                - @carts.each do |cart|
+                  %li
+                    = cart.product.name
+                    %span= cart.total
+                %li.fw-normal
+                  Subtotal
+                  %span= @carts.sum(:total)
+                %li.total-price
+                  Total
+                  %span= @carts.sum(:total)
+              .payment-check
+              .order-btn
+              %a.site-btn.place-btn{href: "#{new_order_path}"} Place Order
+/ Shopping Cart Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

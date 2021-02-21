@@ -1,0 +1,9 @@
+.proceed-checkout{style: "padding-top: 18px;"}
+  %ul
+    %li.cart-total
+      Total
+      %span#finaltotal= "#{current_user.carts.pluck(:total).sum}"
+  - if @carts.count == 0
+    %a.proceed-btn{href: "#{products_path}"} Continue shopping
+  - else
+    %a.proceed-btn{href: "#{checkouts_path}"} PROCEED TO CHECK OUT

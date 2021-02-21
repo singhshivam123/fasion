@@ -1,0 +1,160 @@
+/ Page Preloder
+#preloder
+  .loader
+/ Breadcrumb Section Begin
+.breacrumb-section
+  .container
+    .row
+      .col-lg-12
+        .breadcrumb-text
+          %a{href: "#"}
+            %i.fa.fa-home
+            = link_to "Home", root_path
+          %span
+            = link_to "Order"
+%section.checkout-section.spad
+  .container
+    .row
+      .col-lg-12.card-right{style: "text-align: center;"}
+        = image_tag 'theme_b/check1.gif'
+        %h3.title_confirmation Thank you. Your order has been received.
+        %br
+    %form.checkout-form{action: "#"}
+      .row
+        .col-lg-6
+          %h4 User Details
+          .row
+            .col-lg-6
+              %label{for: "fir"}
+                First Name
+                %span *
+              %input#fir{type: "text", value: "#{current_user.first_name}"}/
+            .col-lg-6
+              %label{for: "last"}
+                Last Name
+                %span *
+              %input#last{type: "text", value: "#{current_user.last_name}"}/
+            .col-lg-6
+              %label{for: "cun"}
+                Country
+                %span *
+              %input#cun{type: "text", value: "#{current_user.country}"}/
+            .col-lg-6
+              %label{for: "town"}
+                Town / City
+                %span *
+              %input#town{type: "text", value: "#{current_user.city}"}/
+            .col-lg-12
+              %label{for: "street"}
+                Street Address
+                %span *
+              %input#street.street-first{type: "text", value: "#{current_user.address}"}/
+            .col-lg-6
+              %label{for: "zip"} Postcode / ZIP (optional)
+              %input#zip{type: "text", value: "#{current_user.pincode}"}/
+            .col-lg-6
+              %label{for: "phone"}
+                Phone
+                %span *
+              %input#phone{type: "text",value: "#{current_user.mobile}"}/
+          %h4 Billing Details
+          .row
+            .col-lg-6
+              %label{for: "cun"}
+                Country
+                %span *
+              %input#cun{type: "text", value: "#{@order.user.country}"}/
+            .col-lg-6
+              %label{for: "town"}
+                Town / City
+                %span *
+              %input#town{type: "text", value: "#{@order.user.city}"}/
+            .col-lg-12
+              %label{for: "street"}
+                Street Address
+                %span *
+              %input#street.street-first{type: "text", value: "#{@order.user.address}"}/
+            .col-lg-6
+              %label{for: "zip"} Postcode / ZIP (optional)
+              %input#zip{type: "text", value: "#{@order.user.pincode}"}/
+            .col-lg-6
+              %label{for: "phone"}
+                Phone
+                %span *
+              %input#phone{type: "text", value: "#{@order.user.mobile}"}/
+        .col-lg-6
+          .place-order
+            %h4 All Product
+            .order-total
+              %ul.order-table
+                %li
+                  Product
+                  %span Total
+                %li.fw-normal
+                - @order_product.each do |order_product|
+                  %li
+                    = order_product.product.name
+                    %span= order_product.product.price
+                %li.fw-normal
+                  Subtotal
+                  %span= @order_product.sum(:price)
+                %li.total-price
+                  Total
+                  %span= @order_product.sum(:price)
+/ Breadcrumb Form Section Begin
+/ Register Section Begin
+%section.shopping-cart.spad
+  .container
+    .row
+      .col-lg-12
+        .cart-table
+          %table
+            %thead
+              %tr
+                %th Image
+                %th Product
+                %th quantity
+                %th Price
+                %th color
+                %th size
+                %th Date
+                %th Total
+            %tbody
+            - @order_product.each do |order_product|
+              %tr
+                %td.cart-pic.first-row
+                  = image_tag order_product.product.image, class: "img-fluid"
+                %td.cart-title.first-row
+                  %h5= order_product.product.name
+                %td.cart-title.first-row
+                  %h5= order_product.quantity
+                %td.cart-title.first-row
+                  %h5= order_product.product.mrp
+                %td.p-price.first-row
+                  .fw-color-choose{style: "border: none; margin-bottom: -11px; padding: 0;"}
+                    .cs-item
+                      %label{style: "background-color: #{order_product.product_color.color.name}"}
+                %td.p-price.first-row= order_product.product_size.size.name
+                %td.p-price.first-row= @order.date.strftime("%d-%m-%y %H:%M")
+                %td.p-price.first-row= order_product.price
+/ Register Form Section End
+/ Partner Logo Section Begin
+.partner-logo
+  .container
+    .logo-carousel.owl-carousel
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-1.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-2.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-3.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-4.png"
+      .logo-item
+        .tablecell-inner
+          = image_tag "theme_b/logo-carousel/logo-5.png"
+/ Partner Logo Section End

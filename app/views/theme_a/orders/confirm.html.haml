@@ -1,0 +1,131 @@
+/ Page info
+.page-top-info
+  .container
+    %h4 Your Order
+    .site-pagination
+      %a{href: "#{root_path}"} Home
+      \/
+      %a{href: "#"} My Account
+      \/
+      %a{href: "#{orders_path}"} My Orders
+      \/
+      %a{href: "#"}= @order.id
+.success-checkmark
+  .check-icon
+    %span.icon-line.line-tip
+    %span.icon-line.line-long
+    .icon-circle
+    .icon-fix
+%h4{style: "text-align: center;"} Your Order Confirm.
+%section.cart-section.spad{style: "padding-top: 60px;"}
+  .container
+    .row
+      .col-lg-4.card-right
+        %h2.p-title= "#{current_user.first_name} #{current_user.last_name}"
+        %br
+        .checkout-form
+          .cf-title Delivery Address
+          .row.address-inputs
+            .col-md-12
+              %div
+                %strong Address :-
+                = current_user.address
+              %br
+            .col-md-6
+              %div
+                %strong Location :-
+                = current_user.location
+              %br
+            .col-md-6
+              %div
+                %strong City :-
+                = current_user.city
+              %br
+            .col-md-6
+              %div
+                %strong Country :-
+                = current_user.country
+              %br
+            .col-md-6
+              %div
+                %strong Pincode :-
+                = current_user.pincode
+        .checkout-form
+          .cf-title Payment Info
+          .row.address-inputs
+            .col-md-6
+              %div
+                %strong Payment Id :-
+                = @order.payment_id
+              %br
+            .col-md-6
+              %div
+                %strong Payment mode :-
+                = @order.payment_mode
+              %br
+            .col-md-12
+              %div
+                %strong Status :-
+                = @order.status
+        .checkout-form
+          .cf-title Bill Info
+          .row.address-inputs
+            .col-md-12
+              %div
+                %strong Subtotal :-
+                = @order.subtotal
+            .col-md-12
+              %div
+                %strong Discount :-
+                = @order.discount
+            .col-md-12
+              %div
+                %strong Discount type :-
+                = @order.discount_type
+            .col-md-12
+              %div
+                %strong Total :-
+                = @order.total
+      .col-lg-8
+        .cart-table
+          %h3 Your Order Details
+          .cart-table-warp
+            %table{class: "form-group"}
+              %thead
+                %tr
+                  %th.product-th Product
+                  %th.quy-th Quantity
+                  %th.quy-th Color
+                  %th.size-th Size
+                  %th.total-th Mrp
+                  %th.total-th Discount
+                  %th.total-th Discount Type
+                  %th.total-th Price
+              %tbody
+                -  @order_product.each do |order_product|
+                  %tr
+                    %td.product-col
+                      = image_tag order_product.product.image
+                      .pc-title
+                        %h4=  " Per #{order_product.product.name}"
+                        %p= order_product.mrp
+                    %td
+                      %p= order_product.quantity
+                    %td.size-col
+                      .fw-color-choose{style: "border: none; margin-bottom: -11px; padding: 0;"}
+                        .cs-item
+                          %label{style: "background-color: #{order_product.product_color.color.value}"}
+                    %td.size-col
+                      %h4= order_product.product_size.size.name
+                    %td.total-col
+                      %h4= order_product.mrp
+                    %td.total-col
+                      %h4= order_product.discount
+                    %td.total-col
+                      %h4= order_product.discount_type
+                    %td.total-col
+                      %h4= order_product.price
+            .total-cost
+              %h6
+                Total
+                %span= @order_product.sum(:price)

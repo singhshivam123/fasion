@@ -1,0 +1,59 @@
+/ Page info
+.page-top-info
+  .container
+    .site-pagination
+      %a{href: "#{root_path}"} Home
+      \/
+      %a{href: "#"} My Account
+      \/
+      %a{href: "#{orders_path}"} My Orders
+/ Page info end
+%section
+  .container
+    .row
+      %div{style: "margin-left: auto; margin-right: auto; padding-top: 12px;"}
+        - unless @orders.present?
+          %h3{style: "text-align: center; margin-top: 7px;"} Your order is empty!
+          %br/
+          %a.site-btn.sb-dark{href: "#{products_path}"} Continue shopping
+%section.cart-section.spad{style: "padding-top: 68px;"}
+  .container
+    .row
+      .col-lg-12
+        - if @orders.blank?
+          %div{class: "cart-table-hide"}
+        - else
+          %div{class: "cart-table"}
+            %h3 Orders
+            .cart-table-warp
+              %table{class: "form-group"}
+                %thead
+                  %tr
+                    %th.product-th Order Id
+                    %th.product-th{style: "text-align: center;"} Status
+                    %th.quy-th Payment Id
+                    %th.quy-th Payment Mode
+                    %th.size-th Date
+                    %th.total-th Subtotal
+                    %th.total-th Discount
+                    %th.total-th Discount Type
+                    %th.total-th Total
+                    %th.total-th{colspan: "3"} Action
+                %tbody
+                - @orders.each do |order|
+                  %tr
+                    %td.product-col= "#{order.id}"
+                    %td.size-col= "#{order.status}"
+                    %td.size-col= order.payment_id
+                    %td.size-col= order.payment_mode
+                    %td.size-col= order.date.strftime("%d-%m-%y %H:%M")
+                    %td.total-col= order.subtotal
+                    %td.total-col= order.discount
+                    %td.total-col= order.discount_type
+                    %td.total-col= order.total
+                    %td.total-col= link_to '', order, class: "fa fa-eye"
+                    %td.total-col= link_to '✖', order, method: :delete, data: { confirm: 'Are you sure?' }
+            %div{class: "cart-table-hide", style: "background: white;"}
+            .total-cost{style: "background: white;"}
+              %h6{ style: "color: red;"}
+                = paginate @orders

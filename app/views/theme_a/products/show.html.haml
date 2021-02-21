@@ -1,0 +1,91 @@
+/ Page info
+.page-top-info
+  .container
+    %h4 Product Show page
+    .site-pagination
+      %a{href: "#{root_path}"} Home
+      \/
+      %a{href: "#{products_path}"} Products
+      \/
+      %a{href: "#"}= @product.id
+/ Page info end
+/ product section
+%section.product-section
+  .container
+    .back-link
+      %a{href: "#{products_path}"} &lt;&lt; Back to Products
+    .row
+      .col-lg-6
+        = image_tag @product.image, class: 'product-big-img'
+      .col-lg-6.product-details
+        %h2.p-title= "#{@product.name}"
+        %h3.p-price= "Product Price: #{@product.price}.00"
+        %h4.p-stock
+          Available:
+          - if @product.available == "yes"
+            %span In Stock
+          - else
+            %span Out of Stock
+        .p-rating
+          %i.fa.fa-star-o
+          %i.fa.fa-star-o
+          %i.fa.fa-star-o
+          %i.fa.fa-star-o
+          %i.fa.fa-star-o.fa-fade
+        .p-review
+          %a{href: ""}> 3 reviews
+          |
+          %a{href: ""} Add your review
+        = form_with(url: carts_path, model: @cart, local: true) do |form|
+          .field
+            = form.hidden_field :user_id, value: current_user.id if user_signed_in?
+            - if @cart.errors.any?
+              %p
+                = @cart.errors.messages[:user_id].join(', ')
+          .field
+            = form.hidden_field :product_id, value: @product.id
+            - if @cart.errors.any?
+              %p
+                = @cart.errors.messages[:product_id].join(', ')
+          .field
+            %h3.p-price Quantity
+            .quantity
+              .pro-qty
+                = form.number_field :quantity, value: 1, required: true
+                - if @cart.errors.any?
+                  %p
+                    = @cart.errors.messages[:quantity].join(', ')
+          .field
+            .fw-color-choose{style: "border: none; margin-bottom: 26px; padding: 0;"}
+              %p{style: "float: left; margin-right: 30px; font-weight: 700;"} Color
+              - @product.product_color.each do |product_color|
+                .cs-item
+                  =  form.radio_button :product_color_id, product_color.id, checked: (product_color.id == @product.product_color.first.id), required: true
+                  %label{style: "background-color: #{product_color.color.value}", for: "cart_product_color_id_#{product_color.id}"}
+                  - if @cart.errors.any?
+                    %p
+                      = @cart.errors.messages[:product_color_id].join(', ')
+          .field
+            .fw-size-choose
+              %p Size
+              - @product.product_size.each do |product_size|
+                .sc-item
+                  =  form.radio_button :product_size_id, product_size.id, checked: (product_size.id == @product.product_size.first.id), required: true
+                  %label{style: "width: 52px;", for: "cart_product_size_id_#{product_size.id}"}= product_size.size.name
+                  - if @cart.errors.any?
+                    %p
+                      = @cart.errors.messages[:product_size_id].join(', ')
+          .field
+            = form.hidden_field :total
+            - if @cart.errors.any?
+              %p
+                = @cart.errors.messages[:total].join(', ')
+            %br
+          .actions
+            - unless user_signed_in? && Cart.where(user_id: current_user.id).pluck(:product_id).include?(@product.id)
+              = form.submit 'Add to Cart', class: 'site-btn' if @product.available == "yes"
+            - else
+              %a{href: "#{carts_path}", class: 'site-btn'}Go To Cart
+            %a{href: "#{products_path}", class: 'site-btn'}Back
+        %br
+        .social-sharing

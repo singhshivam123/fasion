@@ -1,0 +1,121 @@
+.contact-section
+  .container
+    .row.justify-content-center
+      .col-lg-12
+        .text-center
+          %h2
+            Edit #{resource_name.to_s.humanize}
+          = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+            = render "users/shared/error_messages", resource: resource
+            .row{style: "border-bottom: 2px solid #ebebeb; padding-bottom: 40px; margin-bottom: 50px;"}
+              .col-6
+                .field
+                  = f.label :first_name
+                  %br/
+                  = f.text_field :first_name, autofocus: true, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:first_name].join(', ')
+                .field
+                  = f.label :last_name
+                  %br/
+                  = f.text_field :last_name, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:last_name].join(', ')
+                .field
+                  %br/
+                  %section.product-section{style: "padding: 0px;"}
+                    .row
+                      .col-2
+                      .col-4
+                        = f.label :gender
+                      .col-4.product-details
+                        .fw-size-choose
+                          .sc-item
+                            %input#male{name: "user[gender]", type: "radio", value: "male", checked: true}
+                              %label{style: "width: 54px;", for: "male"} Male
+                          .sc-item
+                            %input#female{name: "user[gender]", type: "radio", value: "female"}
+                              %label{style: "width: 54px;", for: "female"} Female
+                      .col-2
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:gender].join(', ')
+                .field
+                  = f.label :mobile
+                  %br/
+                  = f.text_field :mobile, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:mobile].join(', ')
+                .field
+                  = f.label :address
+                  %br/
+                  = f.text_field :address, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:address].join(', ')
+                .field
+                  = f.label :location
+                  %br/
+                  = f.text_field :location, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:location].join(', ')
+                .field
+                  = f.label :city
+                  %br/
+                  = f.text_field :city, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:city].join(', ')
+              .col-6
+                .field
+                  = f.label :country
+                  %br/
+                  = f.text_field :country, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:country].join(', ')
+                  %br/
+                .field
+                  = f.label :pincode
+                  %br/
+                  = f.text_field :pincode, class: 'form-control', required: true
+                  - if @user.errors.any?
+                    %p
+                      = @user.errors.messages[:pincode].join(', ')
+                .field
+                  = f.label :email
+                  %br/
+                  = f.email_field :email, autocomplete: "email", class: 'form-control', required: true
+                - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+                  %div
+                    Currently waiting confirmation for: #{resource.unconfirmed_email}
+                .field
+                  = f.label :password
+                  %i (leave blank if you don't want to change it)
+                  %br/
+                  = f.password_field :password, autocomplete: "new-password", class: 'form-control'
+                  - if @minimum_password_length
+                    %br/
+                    %em
+                      = @minimum_password_length
+                      characters minimum
+                .field{style: "margin-top: 21px;"}
+                  = f.label :password_confirmation
+                  %br/
+                  = f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control'
+                .field
+                  = f.label :current_password
+                  %i (we need your current password to confirm your changes)
+                  %br/
+                  = f.password_field :current_password, autocomplete: "current-password", class: 'form-control'
+                  %br/
+                .actions
+                  = f.submit "Update", class: 'site-btn'
+          %h3 Cancel my account
+          %p
+            Unhappy? #{button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "site-btn"}
+          = link_to "Back", :back, class: "site-btn", style: "margin-bottom: 15px;"
